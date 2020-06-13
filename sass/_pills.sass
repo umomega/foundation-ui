@@ -1,0 +1,35 @@
+.pill
+	color: $white !important
+	opacity: 0.5
+	min-width: 4rem
+	font-size: $size-9
+	font-weight: $weight-bold
+	display: inline-block
+	transition: opacity $duration-short, background-color $duration-short
+	line-height: 1.5rem
+	border-radius: $radius-small
+	border: none
+	padding: 0 0.5rem
+	text-align: center
+	margin-left: 0.25rem
+
+	&.is-bg
+		opacity: 1
+		min-width: 3rem
+
+	&.is-active, &.is-danger
+		box-shadow: $box-shadow
+		background-color: lighten($primary, 8%)
+
+	&.is-active
+		opacity: 1
+
+	&.is-danger
+		background-color: $danger
+		box-shadow: 0 3px 6px rgba($danger, 0.7)
+		&.is-active
+			opacity: 1
+
+.no-touchevents
+	.pill:hover
+		opacity: 0.75

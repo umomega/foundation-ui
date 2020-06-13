@@ -1,0 +1,54 @@
+.paper
+	border-radius: $radius
+	box-shadow: $shadow
+	background-color: $white
+	margin-bottom: 1.75rem
+
+	&.has-flat-bottom
+		margin-bottom: 0
+
+		& + .datable-footer
+			margin-top: -3rem
+			border-bottom-left-radius: $radius-small
+			border-bottom-right-radius: $radius-small
+			margin-bottom: 1.75rem
+			box-shadow: $shadow
+			min-height: 3rem
+
+	&__body
+		display: flex
+		justify-content: flex-start
+
+	&__main
+		padding: 2rem 2.5rem
+		flex-basis: calc(100% - 20rem)
+		flex-grow: 0
+		flex-shrink: 0
+
+	&__side
+		background-color: $white-bis
+		border-left: 1px solid $white-ter
+		flex-basis: 20rem
+		padding: 2rem 1.5rem
+
+	&__footer
+		position: sticky
+		bottom: 2.75rem
+		height: 0
+		padding: 0 1.5rem
+		margin-top: -1.25rem
+
+		.buttons
+			text-align: right
+
+		.button
+			margin-bottom: 0
+
+	.paper.has-flat-bottom + .datable-footer
+		margin-top: 0
+
+.paper-header
+	padding: 1rem 1.5rem
+	position: relative
+	border-top-left-radius: $radius-small
+	border-top-right-radius: $radius-small

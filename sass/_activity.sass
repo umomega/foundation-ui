@@ -1,0 +1,67 @@
+.activity-feed
+	max-width: 30rem
+	margin: 0 auto
+
+.activity
+	padding: 0.625rem 0.25rem
+	display: flex
+	justify-content: flex-start
+	border-bottom: 1px solid $white-ter
+	align-items: flex-start
+
+	&__causer-outer
+		position: relative
+		flex-basis: 2.5rem
+		flex-shrink: 0
+		flex-grow: 0
+		height: 2.5rem
+
+	&__causer
+		box-shadow: $shadow
+		background-color: $primary
+		position: relative
+		border-radius: 50%
+		overflow: hidden
+		width: 2.5rem
+		height: 2.5em
+		padding: 0.5rem 0
+		text-align: center
+
+	&__subject
+		position: absolute
+		bottom: -0.25rem
+		left: -0.25rem
+		width: 2rem
+		height: 2rem
+		border-radius: 50%
+		overflow: hidden
+		border: 2px solid $white
+		background-color: $white-ter
+		box-shadow: $box-shadow
+		text-align: center
+		background-color: $primary
+
+		.activity__initials
+			margin-top: 0.1875rem
+			display: inline-block
+
+	&__avatar
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+
+	&__content
+		padding: 0 0.5rem 0 0.75rem
+		flex-grow: 1
+
+	&__initials
+		color: $white
+		font-weight: $weight-bold
+		font-size: $size-7
+
+	&__date
+		color: $grey
+		font-size: $size-9
+		font-weight: $weight-bold

@@ -1,0 +1,49 @@
+{
+    "name": "umomega-foundation",
+    "version": "1.11.1",
+    "description": "UI Foundation For umΩ Apps",
+    "sass": "foundation-ui.sass",
+    "main": "foundation-ui.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/umomega/foundation-ui.git"
+    },
+    "keywords": [
+        "umomega",
+        "ui",
+        "foundation",
+        "sass",
+        "front-end",
+        "js"
+    ],
+    "author": {
+        "name": "Egemen Berker Kızılcan",
+        "email": "egemen@umomega.com",
+        "url": "https://umomega.com"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/umomega/foundation-ui/issues"
+    },
+    "homepage": "https://github.com/umomega/foundation-ui#readme",
+    "files": [
+        "js",
+        "sass",
+        "LICENSE",
+        "README.md",
+        "foundation-ui.sass",
+        "foundation-ui.js"
+    ],
+    "dependencies": {
+        "axios": "^0.19.2",
+        "axios-progress-bar": "^1.2.0",
+        "cash-dom": "^7.0.3",
+        "lang.js": "^1.1.14",
+        "moment": "2.24.0",
+        "umokit": "^0.3.30",
+        "vue-notification": "^1.3.20",
+        "vue-page-title": "^1.2.2",
+        "vuedraggable": "^2.23.2",
+        "zxcvbn": "^4.4.2"
+    }
+}

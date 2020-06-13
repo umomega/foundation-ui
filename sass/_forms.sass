@@ -1,0 +1,36 @@
+.relation-field
+	border: 1px solid $grey-lightest
+	border-radius: $radius-small
+	background-color: $white-bis
+	
+	.field
+		width: calc(2px + 100%)
+		margin-left: -1px
+		margin-right: -1px
+		margin-bottom: -1px
+
+.related-item
+	padding: 0.5rem 1rem
+	border-bottom: 1px solid $grey-lightest
+	cursor: move
+	user-select: none
+	position: relative
+
+	&:last-child
+		border-bottom: 0
+
+	&.sortable-chosen
+		background-color: $grey-lightest
+		opacity: 0.7
+
+	&.is-disabled
+		cursor: default
+
+	.delete
+		position: absolute
+		top: 0.75rem
+		right: 0.75rem
+
+.relation-search
+	display: block
+	width: 100%

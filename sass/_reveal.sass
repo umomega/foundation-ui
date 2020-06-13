@@ -1,0 +1,8 @@
+.reveal
+	opacity: 0
+	transform: translateY(1rem) scale(0.97, 0.97)
+	transition: transform $duration-short, opacity $duration-short
+
+	&.is-loaded
+		opacity: 1
+		transform: translateY(0) scale(1)
