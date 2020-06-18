@@ -1,6 +1,6 @@
 <template>
 	<div class="paper-header has-background-primary">
-		<div class="level">
+		<div class="level is-mobile">
 			<div class="level-left pl-md">
 				<a href="#" v-for="locale in resource.locales" :class="(locale == editingLocale ? 'pill is-active is-uppercase' : 'pill is-uppercase') + (errors.erroredLocales.includes(locale) ? ' is-danger' : '')" v-text="locale" @click.prevent="changeEditingLocale(locale)"></a>
 			</div>

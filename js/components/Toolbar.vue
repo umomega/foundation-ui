@@ -1,5 +1,5 @@
 <template>
-	<div class="level">
+	<div class="toolbar level is-mobile">
 		<div class="level-left">
 			<div>
 				<p class="is-size-9 has-text-weight-bold has-color-grey-light has-text-centered is-uppercase mb-xxs" v-text="trans.get('foundation::general.search')"></p>
@@ -17,7 +17,7 @@
 
 		</div>
 
-		<div class="level-right" v-if="canwrite">
+		<div class="level-right pl-md" v-if="canwrite">
 			<div>
 				<slot name="toolbar-buttons">
 					<p class="is-size-9 has-text-weight-bold has-color-grey-light has-text-centered is-uppercase mb-xxs" v-text="trans.get('foundation::general.create')"></p>

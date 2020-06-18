@@ -15,21 +15,40 @@
 			box-shadow: $shadow
 			min-height: 3rem
 
+	@media screen and (max-width: $tablet)
+		margin-left: -0.75rem
+		margin-right: -0.75rem
+		width: calc(100% + 1.5rem)
+		.paper
+			width: 100%
+			margin-left: 0
+			margin-right: 0
+
 	&__body
 		display: flex
 		justify-content: flex-start
+		@media screen and (max-width: $tablet)
+			display: block
 
 	&__main
 		padding: 2rem 2.5rem
 		flex-basis: calc(100% - 20rem)
 		flex-grow: 0
 		flex-shrink: 0
+		@media screen and (max-width: $desktop)
+			padding: 2rem 1.25rem
+		@media screen and (max-width: $tablet)
+			padding: 2rem 0.75rem
 
 	&__side
 		background-color: $white-bis
 		border-left: 1px solid $white-ter
 		flex-basis: 20rem
 		padding: 2rem 1.5rem
+		@media screen and (max-width: $desktop)
+			padding: 2rem 1.25rem
+		@media screen and (max-width: $tablet)
+			padding: 2rem 0.75rem
 
 	&__footer
 		position: sticky
@@ -52,3 +71,11 @@
 	position: relative
 	border-top-left-radius: $radius-small
 	border-top-right-radius: $radius-small
+
+	@media screen and (max-width: $tablet)
+		padding: 1rem 0.75rem
+
+		.level-left
+			overflow-x: auto
+			max-width: calc(100% - 4rem)
+			padding-left: 0

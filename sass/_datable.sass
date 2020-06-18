@@ -9,9 +9,14 @@
 
 .datable-row-head, .datable-row-options
 	width: 3rem
-	vertical-align: middle !important
+	min-width: 3rem
+	max-width: 3rem
+	vertical-align: top !important
 	text-align: center !important
 	position: relative
+	input
+		position: relative
+		z-index: 1
 
 .datable-row-options
 	padding: 0 !important
@@ -44,6 +49,9 @@
 .datable-no-results
 	text-align: center
 	padding: 4rem
+
+.toolbar
+	overflow-x: auto
 
 .no-touchevents
 	.datable-row

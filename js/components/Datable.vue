@@ -20,7 +20,7 @@
 		</Toolbar>
 
 		<div class="paper has-flat-bottom">
-			<div class="table-outer">
+			<div class="table-outer table-container">
 				<table class="table is-fullwidth is-hoverable datable">
 					<thead>
 						<tr>

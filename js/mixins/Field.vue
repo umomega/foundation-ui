@@ -1,7 +1,7 @@
 <script>
 export default {
 	props: {
-		readonly: {type: Boolean, required: true},
+		readonly: {type: Boolean|undefined, required: true},
 		placeholder: {type: String, default: ''},
 		label: {type: String, required: true},
 		name: {type: String, required: true},
