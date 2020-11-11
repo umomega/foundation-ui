@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Permissions from '../mixins/Permissions';
+import Permissions from '../mixins/Permissions'
 
 export default {
 	props: ['tabs'],

@@ -18,12 +18,12 @@
 <script>
 	// https://github.com/e-schultz/vue-dynamic-components/blob/master/src/components/v5/FormGenerator.vue
 	// https://github.com/laracasts/Vue-Forms/blob/master/resources/views/projects/create.blade.php
-	import TextField from "./fields/TextField";
-	import TextareaField from "./fields/TextareaField";
-	import EmailField from "./fields/EmailField";
-	import PasswordField from "./fields/PasswordField";
-	import RelationField from "./fields/RelationField";
-	import SelectField from "./fields/SelectField";
+	import TextField from './fields/TextField'
+	import TextareaField from './fields/TextareaField'
+	import EmailField from './fields/EmailField'
+	import PasswordField from './fields/PasswordField'
+	import RelationField from './fields/RelationField'
+	import SelectField from './fields/SelectField'
 
 	export default {
 		components: { TextField, TextareaField, EmailField, PasswordField, RelationField, SelectField },

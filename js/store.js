@@ -1,5 +1,5 @@
-import axios from 'axios';
-import {api_url_with_token} from './helpers';
+import axios from 'axios'
+import {api_url_with_token} from './helpers'
 
 // Shared Store
 var store = {

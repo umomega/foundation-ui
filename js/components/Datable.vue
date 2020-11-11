@@ -74,11 +74,11 @@
 </template>
 
 <script>
-import SortableLink from '../snippets/SortableLink';
-import DataLister from '../mixins/DataLister';
-import Pagination from './Pagination';
-import Toolbar from './Toolbar';
-import {assess_error} from '../helpers';
+import SortableLink from '../snippets/SortableLink'
+import DataLister from '../mixins/DataLister'
+import Pagination from './Pagination'
+import Toolbar from './Toolbar'
+import {assess_error} from '../helpers'
 
 export default {
 	props: ['defaultkey', 'defaultdir', 'route', 'sortables', 'headers', 'createroutename', 'createicon', 'indexloadroute', 'searchloadroute', 'bulkdeleteroute', 'alllabel', 'canwrite', 'hidestoolbar'],

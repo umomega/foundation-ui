@@ -1,5 +1,5 @@
 <script>
-import {assess_error} from '../helpers';
+import {assess_error} from '../helpers'
 
 export default {
 	data() { return {

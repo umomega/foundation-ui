@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import View from '../../mixins/View';
+import View from '../../mixins/View'
 
 export default {
 	mixins: [ View ],
