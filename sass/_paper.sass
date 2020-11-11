@@ -15,15 +15,6 @@
 			box-shadow: $shadow
 			min-height: 3rem
 
-	@media screen and (max-width: $tablet)
-		margin-left: -0.75rem
-		margin-right: -0.75rem
-		width: calc(100% + 1.5rem)
-		.paper
-			width: 100%
-			margin-left: 0
-			margin-right: 0
-
 	&__body
 		display: flex
 		justify-content: flex-start
@@ -56,6 +47,10 @@
 		height: 0
 		padding: 0 1.5rem
 		margin-top: -1.25rem
+		@media screen and (max-width: $desktop)
+			padding: 0 1.25rem
+		@media screen and (max-width: $tablet)
+			padding: 0 0.75rem
 
 		.buttons
 			text-align: right
