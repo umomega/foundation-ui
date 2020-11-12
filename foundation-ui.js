@@ -1,5 +1,7 @@
 import Form from './js/classes/form'
 
+import CheckboxField from './js/components/fields/CheckboxField'
+import ColorField from './js/components/fields/ColorField'
 import EmailField from './js/components/fields/EmailField'
 import PasswordField from './js/components/fields/PasswordField'
 import RelationField from './js/components/fields/RelationField'
@@ -41,7 +43,7 @@ import {api_url, api_url_with_token, format_date, format_date_for_humans, assess
 
 export {
 	Form,
-	EmailField, PasswordField, RelationField, SelectField, TextareaField, TextField,
+	CheckboxField, ColorField, EmailField, PasswordField, RelationField, SelectField, TextareaField, TextField,
 	Datable, DatableDropdown, DeleteModal, Dropdown, FormBody, Notification, Pagination, PaperHeader, Tabs, Toolbar,
 	DataLister, Permissions, RequiresPermissions, Shower, Storer, Translatable, Updater, View,
 	SortableLink, SubmitFooter,

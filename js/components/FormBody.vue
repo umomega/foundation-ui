@@ -24,6 +24,8 @@
 	import PasswordField from './fields/PasswordField'
 	import RelationField from './fields/RelationField'
 	import SelectField from './fields/SelectField'
+	import CheckboxField from './fields/CheckboxField'
+	import ColorField from './fields/ColorField'
 
 	export default {
 		components: { TextField, TextareaField, EmailField, PasswordField, RelationField, SelectField },
