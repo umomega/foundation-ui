@@ -1,5 +1,5 @@
 <template>
-	<div class="field">
+	<div>
 		<label class="label">{{ label }}</label>
 		<div class="control">
 			<div :class="errors.has(translatable ? name + '.' + locale : name) ? 'select is-fullwidth is-danger' : 'select is-fullwidth'">

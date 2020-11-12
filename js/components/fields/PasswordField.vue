@@ -1,5 +1,5 @@
 <template>
-	<div class="field" v-if="!readonly">
+	<div v-if="!readonly">
 		<label class="label">{{ label }}</label>
 		<div class="control">
 			<div :class="options.meter ? 'field has-addons password-with-meter' : 'field has-addons'">

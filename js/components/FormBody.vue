@@ -1,17 +1,33 @@
 <template>
 	<div>
-		<component v-for="(field, index) in schema"
-			:key="index"
-			:is="field.type"
-			:value="getFieldFor(field.name)"
-			:errors="form.errors"
-			:options="field.options || {}"
-			@input="updateForm(field.name, $event)"
-			v-bind="field"
-			:readonly="field.options && field.options.readonly != undefined ? field.options.readonly : readonly"
-			:translatable="translatable"
-			:locale="locale">
-		</component>
+		<div :class="Array.isArray(field) ? '' : 'field'" v-for="(field, index) in schema">
+			<div v-if="Array.isArray(field)" class="field-group">
+				<component v-for="(subfield, index) in field"
+					:key="index"
+					:is="subfield.type"
+					:value="getFieldFor(subfield.name)"
+					:errors="form.errors"
+					:options="subfield.options || {}"
+					@input="updateForm(subfield.name, $event)"
+					v-bind="subfield"
+					:readonly="subfield.options && subfield.options.readonly != undefined ? subfield.options.readonly : readonly"
+					:translatable="translatable"
+					:locale="locale">
+				</component>
+			</div>
+			<component v-else
+				:key="index"
+				:is="field.type"
+				:value="getFieldFor(field.name)"
+				:errors="form.errors"
+				:options="field.options || {}"
+				@input="updateForm(field.name, $event)"
+				v-bind="field"
+				:readonly="field.options && field.options.readonly != undefined ? field.options.readonly : readonly"
+				:translatable="translatable"
+				:locale="locale">
+			</component>
+		</div>
 	</div>
 </template>
 
@@ -28,7 +44,7 @@
 	import ColorField from './fields/ColorField'
 
 	export default {
-		components: { TextField, TextareaField, EmailField, PasswordField, RelationField, SelectField },
+		components: { TextField, TextareaField, EmailField, PasswordField, RelationField, SelectField, CheckboxField, ColorField },
 		props: ['schema', 'value', 'readonly', 'translatable', 'locale'],
 		data() {
 			return {
