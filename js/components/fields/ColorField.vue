@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<label class="label">{{ label }}</label>
-		<div ref="colorpicker">
-			<div class="field has-addons">
+		<div ref="colorpicker" class="mb-lg">
+			<div class="field has-addons mb-none">
 				<div class="control">
 					<button type="button" class="button is-white is-compact" @click="showPicker()" :style="'background-color:' + colors.hex"></button>
 				</div>
@@ -21,8 +21,8 @@
 			<div class="is-relative">
 				<Chrome v-if="displayPicker" class="color-picker" v-model="colors" @input="updateColor()"/>
 			</div>
+			<p class="help is-danger" v-if="anyErrors()" v-text="getErrorMessage()"></p>
 		</div>
-		<p class="help is-danger" v-if="anyErrors()" v-text="getErrorMessage()"></p>
 	</div>
 </template>
 
@@ -36,7 +36,7 @@ export default {
 	data() {
 		return {
 			displayPicker: false,
-			colors: this.value
+			colors: this.value || {hex: '#00249C'}
 		}
 	},
 	methods: {

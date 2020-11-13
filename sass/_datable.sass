@@ -1,7 +1,14 @@
+$datable-compact-width: 40rem
+
 .table-outer
 	margin-top: 5rem
 	position: relative
 	top: -3.125rem
+	@media screen and (max-width: $datable-compact-width)
+		-webkit-overflow-scrolling: touch
+		overflow: auto
+		overflow-y: hidden
+		max-width: 100%
 
 .paper .paper.has-flat-bottom .table-outer
 	top: 0
@@ -22,7 +29,7 @@
 	padding: 0.25rem 0 !important
 	.dropdown
 		text-align: left
-	@media screen and (max-width: 40rem)
+	@media screen and (max-width: $datable-compact-width)
 		display: none
 
 .datable-row-thumb
