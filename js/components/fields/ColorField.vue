@@ -4,7 +4,7 @@
 		<div ref="colorpicker" class="mb-lg">
 			<div class="field has-addons mb-none">
 				<div class="control">
-					<button type="button" class="button is-white is-compact" @click="showPicker()" :style="'background-color:' + colors.hex"></button>
+					<button type="button" class="button is-white is-compact color-swatch" :disabled="readonly" @click="showPicker()" :style="'background-color:' + colors.hex"></button>
 				</div>
 				<div class="control is-fullwidth">
 					<input type="text"
@@ -41,6 +41,7 @@ export default {
 	},
 	methods: {
 		showPicker() {
+			if(this.readonly) return
 			document.addEventListener('click', this.attemptHidePicker)
 			this.displayPicker = true
 		},
@@ -58,6 +59,11 @@ export default {
                 this.hidePicker()
             }
         }
+	},
+	watch: {
+		value: function(n, o) {
+			this.colors = n
+		}
 	}
 }
 </script>
