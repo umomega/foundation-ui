@@ -60,6 +60,9 @@
 				} else {
 					this.$set(this.form, fieldName, value);
 				}
+
+				this.form.errors.clear(fieldName);
+
 				Event.$emit('input', this.form);
 			},
 			getFieldFor(name)
