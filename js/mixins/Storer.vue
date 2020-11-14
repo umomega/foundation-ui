@@ -3,7 +3,7 @@ import {assess_error} from '../helpers'
 
 export default {
 	methods: {
-		requestStore(route, redirect) {
+		requestStore(route, redirect, parent = null) {
 			var self = this;
 
 			self.form.post(api_url(route))
@@ -11,6 +11,8 @@ export default {
 					self.notifier.success(data.message)
 
 					var params = {id: data.payload.id}
+
+					if(parent) params['parent'] = parent
 					
 					if(data.action != undefined) {
 						params[data.action[0]] = data.action[1]

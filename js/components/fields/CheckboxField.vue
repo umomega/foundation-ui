@@ -1,5 +1,5 @@
 <template>
-    <div class="field">
+    <div>
         <label class="label">{{ label }}</label>
         <div class="control">
             <div class="pt-xs pb-xs">
