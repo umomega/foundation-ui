@@ -42,9 +42,11 @@
 	import SelectField from './fields/SelectField'
 	import CheckboxField from './fields/CheckboxField'
 	import ColorField from './fields/ColorField'
+	import NumberField from './fields/NumberField'
+	import DatetimeField from './fields/DatetimeField'
 
 	export default {
-		components: { TextField, TextareaField, EmailField, PasswordField, RelationField, SelectField, CheckboxField, ColorField },
+		components: { TextField, TextareaField, EmailField, PasswordField, RelationField, SelectField, CheckboxField, ColorField, NumberField, DatetimeField },
 		props: ['schema', 'value', 'readonly', 'translatable', 'locale'],
 		data() {
 			return {

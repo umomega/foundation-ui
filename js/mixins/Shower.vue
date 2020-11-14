@@ -14,7 +14,7 @@ export default {
 
 			axios.get(api_url_with_token(self.showRoute + '/' + router.currentRoute.params.id))
 				.then(function(response) {
-					if(self.form) self.form.populate(response.data)
+					if(self.form && !self.preventPopulateForm) self.form.populate(response.data)
 					self.resource = response.data
 					self.isLoaded = true
 					Event.$emit('resource-loaded', response.data)
