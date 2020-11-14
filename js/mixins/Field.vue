@@ -9,7 +9,8 @@ export default {
 		errors: {type: Object, default: {}},
 		options: {type: Object, default: {}},
 		locale: {type: String, default: ''},
-		translatable: {type: Boolean, default: false}
+		translatable: {type: Boolean, default: false},
+		hint: {type: String|undefined, default: ''}
 	},
 	methods: {
 		anyErrors() {

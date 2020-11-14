@@ -51,11 +51,13 @@
 		&:last-child
 			margin-bottom: 1.5rem
 
-.color-picker
+.picker
 	position: absolute
 	top: 0
 	left: 0
 	z-index: 10
+
+.color-picker
 	border-radius: $radius-small !important
 	box-shadow: $shadow-lg !important
 
@@ -64,3 +66,12 @@
 
 .color-swatch
 	opacity: 1 !important
+
+.date-picker
+	*
+		font-family: $family-sans-serif
+	.vc-highlight
+		background-color: $blue !important
+	.vc-date-time
+		.vc-month, .vc-day
+			color: $blue !important

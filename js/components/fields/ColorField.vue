@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<label class="label">{{ label }}</label>
-		<div ref="colorpicker" class="mb-lg">
+		<div ref="picker" class="mb-lg">
 			<div class="field has-addons mb-none">
 				<div class="control">
 					<button type="button" class="button is-white is-compact color-swatch" :disabled="readonly" @click="showPicker()" :style="'background-color:' + colors.hex"></button>
@@ -19,9 +19,10 @@
 				</div>
 			</div>
 			<div class="is-relative">
-				<Chrome v-if="displayPicker" class="color-picker" v-model="colors" @input="updateColor()"/>
+				<Chrome v-if="displayPicker" class="picker color-picker" v-model="colors" @input="updateColor()"/>
 			</div>
 			<p class="help is-danger" v-if="anyErrors()" v-text="getErrorMessage()"></p>
+			<p class="help" v-else v-text="hint"></p>
 		</div>
 	</div>
 </template>
@@ -53,7 +54,7 @@ export default {
         	this.$emit('input', this.colors)
         },
 		attemptHidePicker(e) {
-            let el = this.$refs.colorpicker,
+            let el = this.$refs.picker,
                 target = e.target;
             if(el !== target && !el.contains(target)) {
                 this.hidePicker()
@@ -61,7 +62,7 @@ export default {
         }
 	},
 	watch: {
-		value: function(n, o) {
+		value: function(n) {
 			this.colors = n
 		}
 	}
