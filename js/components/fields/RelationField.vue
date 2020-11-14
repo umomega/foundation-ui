@@ -27,7 +27,7 @@
 			</div>
 		</div>	
 		<p class="help is-danger" v-if="anyErrors()" v-text="getErrorMessage()"></p>
-		<p class="help" v-else v-text="hint"></p>
+		<p class="help" v-else v-html="hint"></p>
 		<input type="hidden"
 			:name="name"
 			:value="calculatedValue"

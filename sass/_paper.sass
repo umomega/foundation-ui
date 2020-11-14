@@ -15,12 +15,6 @@
 			box-shadow: $shadow
 			min-height: 3rem
 
-	&__body
-		display: flex
-		justify-content: flex-start
-		@media screen and (max-width: $tablet)
-			display: block
-
 	&__main
 		padding: 2rem 2.5rem
 		flex-basis: calc(100% - 20rem)
@@ -30,6 +24,18 @@
 			padding: 2rem 1.25rem
 		@media screen and (max-width: $tablet)
 			padding: 2rem 0.75rem
+
+	&__body
+		display: flex
+		justify-content: flex-start
+		@media screen and (max-width: $tablet)
+			display: block
+
+		&--noside
+			justify-content: center
+			& > .paper__main
+				flex-basis: 100%
+				max-width: 48rem
 
 	&__side
 		background-color: $white-bis
