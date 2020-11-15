@@ -1,4 +1,6 @@
 <script>
+import {assess_error} from '../helpers'
+
 export default {
 	created() {
 		this.load()

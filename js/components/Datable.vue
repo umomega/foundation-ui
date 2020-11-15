@@ -78,7 +78,6 @@ import SortableLink from '../snippets/SortableLink'
 import DataLister from '../mixins/DataLister'
 import Pagination from './Pagination'
 import Toolbar from './Toolbar'
-import {assess_error} from '../helpers'
 
 export default {
 	props: ['defaultkey', 'defaultdir', 'route', 'sortables', 'headers', 'createroutename', 'createicon', 'indexloadroute', 'searchloadroute', 'bulkdeleteroute', 'alllabel', 'canwrite', 'hidestoolbar'],
@@ -108,16 +107,6 @@ export default {
 			allChecked: false,
 			isLoaded: false
 		}
-	},
-	created() {
-		this.load()
-
-		var self = this
-
-		Event.$off('resources-deleted')
-		Event.$on('resources-deleted', function(data) {
-			self.load()
-		})
 	},
 	methods: {
 		makeLoadRoute() {
