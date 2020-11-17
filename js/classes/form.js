@@ -187,7 +187,12 @@ export default class Form {
                     resolve(response.data);
                 })
                 .catch(error => {
-                    this.onFail(error.response.data);
+                	// We do this so that we can use abort functions
+                	const data = error.response.data.hasOwnProperty('errors') ?
+                		error.response.data :
+                		{errors: {}}
+
+                    this.onFail(data);
                     reject(error.response.data);
                 });
         });

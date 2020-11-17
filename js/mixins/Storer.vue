@@ -21,7 +21,11 @@ export default {
 					router.push({ name: redirect, params: params })
 				})
 				.catch(function(error) {
-					self.notifier.danger(self.trans.get('foundation::general.errors_saving'))
+					const message = error.hasOwnProperty('errors') ?
+						self.trans.get('foundation::general.errors_saving') :
+						error.message
+
+					self.notifier.danger(message)
 
 					assess_error(error)
 				})
