@@ -3,10 +3,10 @@ import {assess_error} from '../helpers'
 
 export default {
 	methods: {
-		requestUpdate(route) {
+		requestUpdate(route, flag = '') {
 			const self = this;
 
-			self.form.put(api_url(route + '/' + router.currentRoute.params.id))
+			self.form.put(api_url(route + '/' + router.currentRoute.params.id + flag))
 				.then(function(data) { 
 					self.resource = data.payload
 					self.form.populate(data.payload)

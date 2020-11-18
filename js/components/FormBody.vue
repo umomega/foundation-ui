@@ -69,7 +69,21 @@
 			{
 				if(this.translatable) {
 					if(Array.isArray(this.form[name]) || this.form[name] == null) this.form[name] = {}
-					if(this.form[name][this.locale] == undefined) this.form[name][this.locale] = ''
+
+					if(this.form[name][this.locale] == undefined) {
+						var schemaField = null
+
+						for(var i = 0; i < this.schema.length; i++)
+						{
+							if(this.schema[i].name == name) {
+								schemaField = this.schema[i]
+								break
+							}
+						}
+
+						this.form[name][this.locale] = (schemaField && schemaField.default_value != undefined ? schemaField.default_value : '')
+					}
+
 					return this.form[name][this.locale]
 				}
 

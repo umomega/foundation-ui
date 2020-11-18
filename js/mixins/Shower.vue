@@ -6,7 +6,14 @@ export default {
 		resource: {}
 	}},
 	created() {
-		this.loadResource()
+		const self = this
+
+		self.loadResource()
+
+		Event.$off('resource-reload-needed')
+		Event.$on('resource-reload-needed', function() {
+			self.loadResource()
+		})
 	},
 	methods: {
 		loadResource() {

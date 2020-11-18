@@ -41,7 +41,7 @@ export default {
 			if(data.redirect != undefined && data.redirect != self.$route.name) {
 				router.push({ name: data.redirect })
 			} else if(data.fallback != undefined) {
-				self.loadResource()
+				Event.$emit('resource-reload-needed')
 				router.push(data.fallback)
 				self.changeEditingLocale(self.$root.appLocale)
 			}
