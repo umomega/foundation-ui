@@ -25,6 +25,7 @@ export default {
 			Event.$emit('delete-modal-open', payload)
 		},
 		changeEditingLocale(locale) {
+			router.push({ to: this.$route.name, params: { id: this.$route.params.id, locale: locale } })
 			this.editingLocale = locale
 		},
 		clearError(field) {

@@ -37,7 +37,7 @@ export default {
 	data() {
 		return {
 			displayPicker: false,
-			colors: this.value || {hex: '#00249C'}
+			colors: (this.value ?: this.value : {hex: '#00249C'})
 		}
 	},
 	methods: {

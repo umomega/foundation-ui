@@ -68,7 +68,7 @@
 			getFieldFor(name)
 			{
 				if(this.translatable) {
-					if(Array.isArray(this.form[name])) this.form[name] = {}
+					if(Array.isArray(this.form[name]) || this.form[name] == null) this.form[name] = {}
 					if(this.form[name][this.locale] == undefined) this.form[name][this.locale] = ''
 					return this.form[name][this.locale]
 				}

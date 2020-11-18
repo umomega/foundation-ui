@@ -15,7 +15,7 @@
 			</div>
 			<div class="is-relative">
 				<div v-if="displayPicker" class="picker date-picker">
-					<DatePicker v-model="date" mode="dateTime" is24hr :first-day-of-week="2"/>
+					<DatePicker v-model="date" mode="dateTime" is24hr :first-day-of-week="2" @input="updateDate()"/>
 				</div>
 			</div>
 		</div>	
@@ -34,7 +34,7 @@ export default {
 	data() {
 		return {
 			displayPicker: false,
-			date: this.value || new Date(),
+			date: (this.value ? this.value : new Date()),
 			settings: {
 				hightlight: {
 					color: 'red'
@@ -57,6 +57,9 @@ export default {
             document.removeEventListener('click', this.attemptHidePicker)
             this.displayPicker = false
         },
+        updateDate() {
+        	this.$emit('input', this.readableDate)
+        },
 		attemptHidePicker(e) {
             let el = this.$refs.picker,
                 target = e.target;
@@ -67,7 +70,7 @@ export default {
 	},
 	watch: {
 		value: function(n) {
-			this.date = n
+			this.date = typeof n == 'string' ? new Date(n) : n
 		}
 	}
 }
