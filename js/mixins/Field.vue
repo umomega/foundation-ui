@@ -3,7 +3,7 @@ export default {
 	props: {
 		readonly: {type: Boolean|undefined, required: true},
 		placeholder: {type: String, default: ''},
-		label: {type: String, required: true},
+		label: {type: String|undefined, required: true},
 		name: {type: String, required: true},
 		value: {type: String|Array, default: ''},
 		errors: {type: Object, default: {}},

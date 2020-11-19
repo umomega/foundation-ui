@@ -1,6 +1,6 @@
 <template>
 	<div v-if="!readonly">
-		<label class="label">{{ label }}</label>
+		<label v-if="label != undefined" class="label">{{ label }}</label>
 		<div class="control">
 			<div :class="options.meter ? 'field has-addons password-with-meter' : 'field has-addons'">
 				<div class="control is-expanded">

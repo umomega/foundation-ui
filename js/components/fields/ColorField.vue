@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<label class="label">{{ label }}</label>
+		<label v-if="label != undefined" class="label">{{ label }}</label>
 		<div ref="picker" class="mb-lg">
 			<div class="field has-addons mb-none">
 				<div class="control">

@@ -1,8 +1,11 @@
 <template>
 	<div>
-		<label class="label">{{ label }}</label>
+		<label v-if="label != undefined" class="label">{{ label }}</label>
 		<div ref="picker">
-			<div class="control">
+			<div class="control has-icons-left">
+				<span class="icon is-small is-left">
+			      <i class="fas fa-calendar-alt has-color-grey-light"></i>
+			    </span>
 				<input type="text"
 					:class="errors.has(translatable ? name + '.' + locale : name) ? 'input is-danger' : 'input'"
 					:name="name"

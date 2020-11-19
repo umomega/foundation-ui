@@ -1,6 +1,6 @@
 <template>
     <div>
-        <label class="label">{{ label }}</label>
+        <label v-if="label != undefined" class="label">{{ label }}</label>
         <div class="control">
             <div class="pt-xs pb-xs">
                 <label class="toggle">

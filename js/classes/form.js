@@ -8,7 +8,7 @@ class Errors {
 
 		this.anyErrors = false;
 
-		this.erroredLocales = [];
+		this.erroredLocales = new Array();
 	}
 
 	/**
@@ -54,7 +54,7 @@ class Errors {
 	 * Finds errored locales
 	 */
 	findErroredLocales() {
-		this.erroredLocales = [];
+		this.erroredLocales = new Array();
 
 		for(const [field, message] of Object.entries(this.errors)) {
 			if(!field.includes('.')) continue;

@@ -1,18 +1,27 @@
 <template>
 	<div>
-		<label class="label">{{ label }}</label>
+		<label v-if="label != undefined" class="label">{{ label }}</label>
 		<div class="control">
-			<div class="relation-field">
-				<p class="pt-xs pb-xs pl-md pr-md" v-if="related.length == 0" v-text="trans.get('foundation::general.no_item_selected')"></p>
-				<draggable v-if="!readonly" v-model="related" :tag="'ul'" @end="calculate" :animation="200">
-					<li class="related-item" v-for="(item, i) in related" :key="item.id">{{ item.name }} <span class="delete is-small" @click="remove(i)"></span></li>
+			<div :class="options.wrapper ? options.wrapper : 'relation-field'">
+				<slot name="message" :related="related">
+					<p class="pt-xs pb-xs pl-md pr-md" v-if="related.length == 0" v-text="trans.get('foundation::general.no_item_selected')"></p>
+				</slot>
+				
+				<draggable v-if="!readonly" v-model="related" :tag="options.tag ? options.tag : 'ul'" @end="calculate" :animation="200" :class="options.class ? options.class : ''">
+					<slot name="draggable" :related="related" :remove="remove">
+						<li class="related-item" v-for="(item, i) in related" :key="item.id">{{ translated ? item.name[$root.appLocale] : item.name }} <span class="delete is-small" @click="remove(i)"></span></li>
+					</slot>
 				</draggable>
-				<ul v-if="readonly">
-					<li class="related-item is-disabled" v-for="item in related" v-text="item.name"></li>
-				</ul>
+
+				<slot name="readonly" :readonly="readonly" :related="related" :translated="translated">
+					<ul v-if="readonly">
+						<li class="related-item is-disabled" v-for="item in related" v-text="translated ? item.name[$root.appLocale] : item.name"></li>
+					</ul>
+				</slot>
+
 				<div class="field" v-if="!readonly">
 					<div class="control has-icons-left">
-						<input :ref="name + '_search'" type="text" :class="errors.has(translatable ? name + '.' + locale : name) ? 'input is-danger' : 'input'" :placeholder="placeholder" @keydown. @keydown="search" v-model="searchTerm" @focus="isFocused = true" @blur="isFocused = true" @keydown.down.prevent="focusNavigator" @keydown.enter.prevent>
+						<input :ref="name + '_search'" type="text" :class="errors.has(translatable ? name + '.' + locale : name) ? 'input is-danger' : 'input'" :placeholder="placeholder" @keydown="search" v-model="searchTerm" @focus="isFocused = true" @blur="isFocused = true" @keydown.down.prevent="focusNavigator" @keydown.enter.prevent>
 						<span class="icon is-small is-left">
 							<i class="fas fa-search"></i>
 						</span>
@@ -20,7 +29,7 @@
 					<div class="dropdown-menu relation-search" v-if="showsResults">
 						<input class="sr-only" type="text" :ref="name + '_navigator'" @focus="isFocused = true" @blur="isFocused = true" @keydown.enter.prevent="addCurrentItem" @keydown.down.prevent="selectNextItem" @keydown.up.prevent="selectPreviousItem">
 						<div class="dropdown-content">
-							<a href="#" v-for="(item, i) in results" @click.prevent="add(item)" @mouseenter="selectedItem = i" v-text="item.name" :class="i == selectedItem ? 'dropdown-item is-active' : 'dropdown-item'"></a>
+							<a href="#" v-for="(item, i) in results" @click.prevent="add(item)" @mouseenter="selectedItem = i" v-text="translated ? item.name[$root.appLocale] : item.name" :class="i == selectedItem ? 'dropdown-item is-active' : 'dropdown-item'"></a>
 						</div>
 					</div>
 				</div>
@@ -70,6 +79,9 @@ export default {
 		},
 		showsResults() {
 			return this.results.length > 0 && (this.isFocused || this.isBrowsing);
+		},
+		translated() {
+			return this.options.translated
 		}
 	},
 	created() {

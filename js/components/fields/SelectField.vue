@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<label class="label">{{ label }}</label>
+		<label v-if="label != undefined" class="label">{{ label }}</label>
 		<div class="control">
 			<div :class="errors.has(translatable ? name + '.' + locale : name) ? 'select is-fullwidth is-danger' : 'select is-fullwidth'">
 				<select :name="name" :required="options.required" :readonly="readonly" :disabled="readonly" @input="$emit('input', $event.target.value)">
