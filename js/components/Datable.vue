@@ -1,7 +1,17 @@
 <template>
 	<div :class="isLoaded ? 'reveal is-loaded' : 'reveal'">
 
-		<Toolbar v-if="!hidestoolbar" :createroutename="createroutename" :searchterm="searchTerm" :route="route" :canwrite="canwrite" :createicon="createicon">
+		<Toolbar v-if="!hidestoolbar" :createroutename="createroutename" :searchterm="searchTerm" :route="route" :canwrite="canwrite" :createicon="createicon" :filterable="filterable">
+			<div class="ml-md" v-if="!searchmode && filterable">
+				<p class="is-size-9 has-text-weight-bold has-color-grey-light has-text-centered is-uppercase mb-xxs" v-text="trans.get('foundation::general.filter')"></p>
+				<div class="select">
+					<select @change="resetPageAndLoad" v-model="filterKey">
+						<option value="all" v-text="trans.get('foundation::general.all')"></option>
+						<option v-for="filter in filters" :value="filter.value" v-text="filter.label"></option>
+					</select>
+				</div>
+			</div>
+
 			<div class="ml-md" v-if="showBulkActions">
 				<p class="is-size-9 has-text-weight-bold has-color-grey-light has-text-centered is-uppercase mb-xxs" v-text="trans.get('foundation::general.bulk_actions')"></p>
 				<div class="field has-addons">
@@ -26,9 +36,8 @@
 						<tr>
 							<th></th>
 							<th v-for="sortable in sortables">
-								<SortableLink v-if="!searchmode" :currentdir="sortDir" :currentkey="sortKey" :ownkey="sortable.key" :currentroute="route" :label="sortable.label"/>
-
-								<span v-if="searchmode" class="has-color-grey">
+								<SortableLink v-if="!searchmode && !sortable.skip" :currentdir="sortDir" :currentkey="sortKey" :ownkey="sortable.key" :currentroute="route" :label="sortable.label"/>
+								<span v-else="searchmode" class="has-color-grey">
 									<span class="is-uppercase is-size-8" v-text="trans.get(sortable.label)"></span>
 								</span>
 							</th>
@@ -80,18 +89,19 @@ import Pagination from './Pagination'
 import Toolbar from './Toolbar'
 
 export default {
-	props: ['defaultkey', 'defaultdir', 'route', 'sortables', 'headers', 'createroutename', 'createicon', 'indexloadroute', 'searchloadroute', 'bulkdeleteroute', 'alllabel', 'canwrite', 'hidestoolbar'],
+	props: ['defaultkey', 'defaultdir', 'route', 'sortables', 'headers', 'createroutename', 'createicon', 'indexloadroute', 'searchloadroute', 'bulkdeleteroute', 'alllabel', 'canwrite', 'hidestoolbar', 'filterable', 'filters'],
 	mixins: [ DataLister ],
 	components: { Toolbar, SortableLink, Pagination },
 	watch: {
 		$route(to, from) {
-			this.searchTerm = to.query.q || '';
-			Event.$emit('search-query-changed', this.searchTerm);
+			this.searchTerm = to.query.q || ''
+			Event.$emit('search-query-changed', this.searchTerm)
 
-			this.page = (this.sortKey === to.query.s && this.sortDir === to.query.d && to.query.page) ? to.query.page : 1;
+			this.page = (this.sortKey === to.query.s && this.sortDir === to.query.d && to.query.page) ? to.query.page : 1
 
-			this.sortKey = to.query.s || this.defaultkey;
-			this.sortDir = to.query.d || this.defaultdir;
+			this.sortKey = to.query.s || this.defaultkey
+			this.sortDir = to.query.d || this.defaultdir
+			this.filterKey = to.query.f || 'all'
 
 			this.load();
 		}
@@ -100,6 +110,7 @@ export default {
 		return {
 			sortKey: this.$route.query.s || this.defaultkey,
 			sortDir: this.$route.query.d || this.defaultdir,
+			filterKey: this.$route.query.f || 'all',
 			searchTerm: this.$route.query.q || '',
 			page: this.$route.query.page || 1,
 			content: { data: [] },
@@ -112,8 +123,16 @@ export default {
 		makeLoadRoute() {
 			return (this.searchmode
 				? api_url_with_token(this.searchloadroute) + '&q=' + this.searchTerm
-				: api_url_with_token(this.indexloadroute) + '&s=' + this.sortKey + '&d=' + this.sortDir + '&page=' + this.page)
-		}
+				: api_url_with_token(this.indexloadroute) + '&s=' + this.sortKey + '&d=' + this.sortDir + '&page=' + this.page + (this.filterable ? '&f=' + this.filterKey : ''))
+		},
+		resetPageAndLoad() {
+			router.push({name: this.route, query: {
+				s: this.sortKey,
+				d: this.sortDir,
+				f: this.filterKey,
+				page: 1
+			}})
+		},
 	}
 }
 </script>
