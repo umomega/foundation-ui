@@ -11,6 +11,11 @@ export default {
 		Event.$on('resources-deleted', function(data) {
 			self.load()
 		})
+
+		Event.$off('content-state-changed')
+		Event.$on('content-state-changed', function() {
+			self.load()
+		})
 	},
 	computed: {
 		totalPages() {
