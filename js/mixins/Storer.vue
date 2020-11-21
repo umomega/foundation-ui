@@ -18,6 +18,8 @@ export default {
 						params[data.action[0]] = data.action[1]
 					}
 
+					if(data.event) Event.$emit(data.event, data.payload)
+
 					router.push({ name: redirect, params: params })
 				})
 				.catch(function(error) {

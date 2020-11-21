@@ -11,6 +11,8 @@ export default {
 					self.resource = data.payload
 					self.form.populate(data.payload)
 					self.notifier.success(data.message)
+
+					if(data.event) Event.$emit(data.event, data.payload)
 				})
 				.catch(function(error) {
 					const message = error.hasOwnProperty('errors') ?

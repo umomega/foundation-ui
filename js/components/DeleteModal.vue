@@ -32,13 +32,13 @@ export default {
 		}
 	},
 	mounted() {
-		const self = this;
+		const self = this
 		
 		Event.$on('delete-modal-open', function(payload) {
 			document.querySelector('html,body').classList.add('is-clipped')
 			self.payload = payload
 			self.isOpen = true
-		});
+		})
 
 		Event.$on('delete-modal-close', function() {
 			document.querySelector('html,body').classList.remove('is-clipped')
@@ -48,20 +48,22 @@ export default {
 	},
 	methods: {
 		close() {
-			Event.$emit('delete-modal-close');
+			Event.$emit('delete-modal-close')
 		},
 		requestDelete() {
 			var data = {}
 			var self = this
 
 			if (this.payload.bulk) {
-				data['items'] = this.payload.items;
+				data['items'] = this.payload.items
 			}
 			
 			axios.delete(api_url(this.payload.route), { data: data })
 				.then(function(response) {
-					self.notifier.success(response.data.message);
-					Event.$emit('resources-deleted', response.data);
+					self.notifier.success(response.data.message)
+					Event.$emit('resources-deleted', response.data)
+
+					if(data.event) Event.$emit(data.event, data.payload)
 				})
 				.catch(function(error) {self.notifier.danger(self.trans.get('foundation::general.errors_deleting'))})
 
