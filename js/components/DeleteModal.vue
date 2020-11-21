@@ -63,7 +63,7 @@ export default {
 					self.notifier.success(response.data.message)
 					Event.$emit('resources-deleted', response.data)
 
-					if(data.event) Event.$emit(data.event, data.payload)
+					if(response.data.event) Event.$emit(response.data.event, response.data)
 				})
 				.catch(function(error) {self.notifier.danger(self.trans.get('foundation::general.errors_deleting'))})
 
