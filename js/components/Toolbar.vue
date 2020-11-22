@@ -39,7 +39,7 @@ export default {
 	},
 	data() {
 		return {
-			searchTerm: this.searchquery || ''
+			searchTerm: ''
 		}
 	},
 	methods: {
@@ -50,9 +50,13 @@ export default {
 		}
 	},
 	created() {
-		var self = this
+		const self = this
 		
-		Event.$on('search-query-changed', function(query) { this.searchTerm = query })
+		self.searchTerm = self.searchquery || '' 
+
+		Event.$on('search-query-changed', function(query) {
+			self.searchTerm = query
+		})
 	}
 }
 </script>

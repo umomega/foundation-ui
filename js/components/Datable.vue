@@ -1,7 +1,7 @@
 <template>
 	<div :class="isLoaded ? 'reveal is-loaded' : 'reveal'">
 
-		<Toolbar v-if="!hidestoolbar" :createroutename="createroutename" :searchterm="searchTerm" :route="route" :canwrite="canwrite" :createicon="createicon" :filterable="filterable">
+		<Toolbar v-if="!hidestoolbar" :createroutename="createroutename" :searchquery="searchTerm" :route="route" :canwrite="canwrite" :createicon="createicon" :filterable="filterable">
 			<div class="ml-md" v-if="!searchmode && filterable">
 				<p class="is-size-9 has-text-weight-bold has-color-grey-light has-text-centered is-uppercase mb-xxs" v-text="trans.get('foundation::general.filter')"></p>
 				<div class="select">
