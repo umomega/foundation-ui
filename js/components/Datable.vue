@@ -71,8 +71,8 @@
 			</div>
 		</div>
 
-		<div class="datable-footer has-background-primary">
-			<Pagination v-if="totalPages > 1 && !searchmode" :total="totalPages" :current="page" :sortkey="sortKey" :route="route" :sortdir="sortDir"/>
+		<div :class="paginationinverted == undefined || paginationinverted ? 'datable-footer has-background-primary' : 'datable-footer has-background-white-ter'">
+			<Pagination v-if="totalPages > 1 && !searchmode" :total="totalPages" :current="page" :sortkey="sortKey" :route="route" :sortdir="sortDir" :inverted="paginationinverted"/>
 			
 			<div class="has-text-centered pt-sm pb-sm" v-if="searchmode">
 				<router-link class="has-color-white is-uppercase has-text-weight-bold is-size-7" :to="{ name: route }"><i class="icon fas fa-long-arrow-alt-left"></i> {{ trans.get(alllabel) }}</router-link>
@@ -89,7 +89,7 @@ import Pagination from './Pagination'
 import Toolbar from './Toolbar'
 
 export default {
-	props: ['defaultkey', 'defaultdir', 'route', 'sortables', 'headers', 'createroutename', 'createicon', 'indexloadroute', 'searchloadroute', 'bulkdeleteroute', 'alllabel', 'canwrite', 'hidestoolbar', 'filterable', 'filters'],
+	props: ['defaultkey', 'defaultdir', 'route', 'sortables', 'headers', 'createroutename', 'createicon', 'indexloadroute', 'searchloadroute', 'bulkdeleteroute', 'alllabel', 'canwrite', 'hidestoolbar', 'filterable', 'filters', 'paginationinverted'],
 	mixins: [ DataLister ],
 	components: { Toolbar, SortableLink, Pagination },
 	watch: {
