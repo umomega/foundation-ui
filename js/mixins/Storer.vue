@@ -3,10 +3,10 @@ import {assess_error} from '../helpers'
 
 export default {
 	methods: {
-		requestStore(route, redirect, parent = null) {
+		requestStore(route, redirect, parent = null, method = 'post') {
 			var self = this;
 
-			self.form.post(api_url(route))
+			self.form.submit(method, api_url(route))
 				.then(function(data) { 
 					self.notifier.success(data.message)
 

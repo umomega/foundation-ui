@@ -158,7 +158,7 @@ export default {
 		},
 		addCurrentItem() {
 			if(this.selectedItem != null) {
-				this.add(this.searchResults[this.selectedItem])
+				this.add(this.results[this.selectedItem])
 			}
 		}
 	}
