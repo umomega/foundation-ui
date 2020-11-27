@@ -47,7 +47,9 @@ export default {
 	},
 	computed: {
 		readableDate() {
-			return this.date.toISOString().replace('T', ' ').substring(0, this.date.toISOString().length - 5)
+			const tzoffset = (new Date()).getTimezoneOffset() * 60000
+
+			return (new Date(this.date - tzoffset)).toISOString().replace('T', ' ').substring(0, this.date.toISOString().length - 5)
 		}
 	},
 	methods: {
@@ -74,6 +76,8 @@ export default {
 	watch: {
 		value: function(n) {
 			this.date = typeof n == 'string' ? new Date(n) : n
+
+			this.updateDate()
 		}
 	}
 }

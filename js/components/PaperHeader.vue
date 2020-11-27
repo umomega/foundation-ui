@@ -33,7 +33,7 @@ export default {
 			Event.$emit('editing-locale-changed', locale)
 		}
 	},
-	created() {
+	mounted() {
 		var self = this
 		
 		Event.$off('resources-deleted')

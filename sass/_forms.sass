@@ -100,3 +100,143 @@
 
 	.prism-editor__line-number
 		line-height: 1.75
+
+.media-field-outer .button.is-danger
+	background-color: transparent !important
+
+.media-field
+	border: $control-border-width solid transparent
+	border-radius: $input-radius
+	min-height: $control-height
+	padding: 0.5rem
+	background-color: $input-background-color
+	border-color: $input-border-color
+	transition: border-color $duration-short
+
+	&.is-danger
+		border-color: $danger
+
+	&.is-active
+		border-color: $primary
+
+.single-medium
+	position: relative
+	width: 100%
+
+	&__progress
+		border-radius: $radius-small
+		height: 100%
+		position: absolute
+		width: 100%
+		background-color: $white-ter
+		overflow: hidden
+
+	&__progress-bar
+		transition: width $duration-short
+		background-color: $primary-light
+		height: 100%
+
+	&__info
+		height: 2.5rem
+		border-radius: $radius-small
+		position: relative
+		z-index: 1
+		display: flex
+
+	&__thumb
+		flex-grow: 0
+		flex-shrink: 0
+		flex-basis: 2.5rem
+		height: 2.5rem
+
+	&__icon, &__image
+		border-radius: $radius-small
+		box-shadow: $shadow
+
+	&__name
+		flex-grow: 1
+		flex-shrink: 0
+		flex-basis: calc(100% - 2.5rem)
+		padding-left: 0.75rem
+		overflow: hidden
+		text-overflow: ellipsis
+		white-space: nowrap
+		word-wrap: normal
+		line-height: 2.5rem
+		font-size: 0.875rem
+
+	&__icon
+		background-color: $primary
+		color: $white
+		line-height: 2.5rem
+		text-align: center
+		.fas
+			font-size: 1rem !important
+
+.multiple-media
+	width: calc(100% + 0.5rem)
+	margin-right: -0.5rem
+	margin-bottom: -0.5rem
+	+clearfix
+
+	.delete
+		position: absolute
+		top: 0.5rem
+		right: 0.5rem
+
+	&__slide
+		width: calc(20% - 0.5rem)
+		margin-right: 0.5rem
+		margin-bottom: 0.5rem
+		overflow: hidden
+		border-radius: $radius-small
+		float: left
+		display: inline-block
+		padding-top: calc(20% - 0.5rem)
+		position: relative
+		background-color: $white-ter
+		cursor: move
+		@media screen and (max-width: $fullhd)
+			width: calc(25% - 0.5rem)
+			padding-top: calc(25% - 0.5rem)
+
+	&--disabled .multiple-media__slide
+		cursor: not-allowed
+
+	&__progress
+		width: calc(100% - 1.5rem)
+		left: 0.75rem
+		border-radius: $radius-small
+		height: 0.25rem
+		position: absolute
+		top: calc(50% - 0.125rem)
+		background-color: $grey-lightest
+		overflow: hidden
+
+	&__progress-bar
+		transition: width $duration-short
+		background-color: $primary
+		height: 0.25rem
+
+	&__image
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+
+	&__icon
+		position: absolute
+		left: 0
+		text-align: center
+		top: calc(50% - 1.5rem)
+		width: 100%
+
+.button.is-inverted.is-danger:focus
+	color: $danger-dark !important
+.button.is-inverted.is-danger:active
+	color: $white !important
+	background-color: $danger-dark !important
+
+.no-touchevents
+	.button.is-inverted.is-danger:hover
+		color: $danger-dark

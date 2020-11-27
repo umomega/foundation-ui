@@ -4,6 +4,9 @@ import CheckboxField from './js/components/fields/CheckboxField'
 import ColorField from './js/components/fields/ColorField'
 import DatetimeField from './js/components/fields/DatetimeField'
 import EmailField from './js/components/fields/EmailField'
+import MediaField from './js/components/fields/MediaField'
+import MediaFieldSingleUploadable from './js/components/fields/MediaFieldSingleUploadable'
+import MediaFieldMultipleUploadable from './js/components/fields/MediaFieldMultipleUploadable'
 import NumberField from './js/components/fields/NumberField'
 import PasswordField from './js/components/fields/PasswordField'
 import RelationField from './js/components/fields/RelationField'
@@ -26,6 +29,7 @@ import DataLister from './js/mixins/DataLister'
 import Permissions from './js/mixins/Permissions'
 import RequiresPermissions from './js/mixins/RequiresPermissions'
 import Shower from './js/mixins/Shower'
+import SingleMultiple from './js/mixins/SingleMultiple'
 import Storer from './js/mixins/Storer'
 import Translatable from './js/mixins/Translatable'
 import Updater from './js/mixins/Updater'
@@ -45,9 +49,9 @@ import {api_url, api_url_with_token, format_date, format_date_for_humans, assess
 
 export {
 	Form,
-	CheckboxField, ColorField, DatetimeField, EmailField, NumberField, PasswordField, RelationField, SelectField, TextareaField, TextField,
+	CheckboxField, ColorField, DatetimeField, EmailField, MediaField, MediaFieldSingleUploadable, MediaFieldMultipleUploadable, NumberField, PasswordField, RelationField, SelectField, TextareaField, TextField,
 	Datable, DatableDropdown, DeleteModal, Dropdown, FormBody, Notification, Pagination, PaperHeader, Tabs, Toolbar,
-	DataLister, Permissions, RequiresPermissions, Shower, Storer, Translatable, Updater, View,
+	DataLister, Permissions, RequiresPermissions, Shower, SingleMultiple, Storer, Translatable, Updater, View,
 	SortableLink, SubmitFooter,
 	NotFound, Unauthorized, Internal,
 	Modernizr,

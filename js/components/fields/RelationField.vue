@@ -3,19 +3,19 @@
 		<label v-if="label != undefined" class="label">{{ label }}</label>
 		<div class="control">
 			<div :class="options.wrapper ? options.wrapper : 'relation-field'">
-				<slot name="message" :related="related">
-					<p class="pt-xs pb-xs pl-md pr-md" v-if="related.length == 0" v-text="trans.get('foundation::general.no_item_selected')"></p>
+				<slot name="message" :related="selected">
+					<p class="pt-xs pb-xs pl-md pr-md" v-if="selected.length == 0" v-text="trans.get('foundation::general.no_item_selected')"></p>
 				</slot>
 				
-				<draggable v-if="!readonly" v-model="related" :tag="options.tag ? options.tag : 'ul'" @end="calculate" :animation="200" :class="options.class ? options.class : ''">
-					<slot name="draggable" :related="related" :remove="remove">
-						<li class="related-item" v-for="(item, i) in related" :key="item.id">{{ translated ? item.name[$root.appLocale] : item.name }} <span class="delete is-small" @click="remove(i)"></span></li>
+				<draggable v-if="!readonly" v-model="selected" :tag="options.tag ? options.tag : 'ul'" @end="updateValue" :animation="200" :class="options.class ? options.class : ''">
+					<slot name="draggable" :related="selected" :remove="remove">
+						<li class="related-item" v-for="(item, i) in selected" :key="item.id">{{ translated ? item.name[$root.appLocale] : item.name }} <span class="delete is-small" @click="remove(i)"></span></li>
 					</slot>
 				</draggable>
 
-				<slot name="readonly" :readonly="readonly" :related="related" :translated="translated">
+				<slot name="readonly" :readonly="readonly" :related="selected" :translated="translated">
 					<ul v-if="readonly">
-						<li class="related-item is-disabled" v-for="item in related" v-text="translated ? item.name[$root.appLocale] : item.name"></li>
+						<li class="related-item is-disabled" v-for="item in selected" v-text="translated ? item.name[$root.appLocale] : item.name"></li>
 					</ul>
 				</slot>
 
@@ -37,27 +37,18 @@
 		</div>	
 		<p class="help is-danger" v-if="anyErrors()" v-text="getErrorMessage()"></p>
 		<p class="help" v-else v-html="hint"></p>
-		<input type="hidden"
-			:name="name"
-			:value="calculatedValue"
-			@change="$emit('input', $event.target.value)"
-			>
 	</div>
 </template>
 
 <script>
-import draggable from 'vuedraggable'
-import Field from '../../mixins/Field'
+import SingleMultiple from '../../mixins/SingleMultiple'
 // https://github.com/SortableJS/Vue.Draggable
 // https://sortablejs.github.io/Vue.Draggable/#/simple
 
 export default {
-	mixins: [ Field ],
-	components: { draggable },
+	mixins: [ SingleMultiple ],
 	data() {
 		return {
-			related: this.value || [],
-			calculatedValue: '',
 			searchTerm: '',
 			timeoutHandle: null,
 			isFocused: false,
@@ -70,8 +61,8 @@ export default {
 			var self = this;
 
 			return self.searchResults.filter(function(result) {
-				for(var i = 0; i < self.related.length; i++) {
-					if(self.related[i].id == result.id) return false
+				for(var i = 0; i < self.selected.length; i++) {
+					if(self.selected[i].id == result.id) return false
 				}
 
 				return true;
@@ -85,28 +76,9 @@ export default {
 		}
 	},
 	created() {
-		this.calculate();
-	},
-	watch: {
-		value(to, from) {
-			this.related = to;
-		}
+		this.updateValue();
 	},
 	methods: {
-		calculate() {
-			if(this.options.multiple) {
-				this.calculatedValue = [];
-				for(var i = 0; i < this.related.length; i++) {
-					this.calculatedValue.push(this.related[i].id);
-				}
-			} else {
-				this.calculatedValue = this.related[0].id
-			}
-		},
-		remove(i) {
-			this.related.splice(i, 1);
-			this.calculate();
-		},
 		search() {
 			clearTimeout(this.timeoutHandle)
 			this.timeoutHandle = setTimeout(this.searchHandle, 200)
@@ -126,9 +98,9 @@ export default {
 			if(item == null) return;
 
 			if(this.options.multiple) {
-				this.related.push(item);
+				this.selected.push(item);
 			} else {
-				this.related = [item];
+				this.selected = [item];
 			}
 
 			this.searchTerm = ''

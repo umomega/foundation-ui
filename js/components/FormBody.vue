@@ -44,9 +44,10 @@
 	import ColorField from './fields/ColorField'
 	import NumberField from './fields/NumberField'
 	import DatetimeField from './fields/DatetimeField'
+	import MediaField from './fields/MediaField'
 
 	export default {
-		components: { TextField, TextareaField, EmailField, PasswordField, RelationField, SelectField, CheckboxField, ColorField, NumberField, DatetimeField },
+		components: { TextField, TextareaField, EmailField, PasswordField, RelationField, SelectField, CheckboxField, ColorField, NumberField, DatetimeField, MediaField },
 		props: ['schema', 'value', 'readonly', 'translatable', 'locale'],
 		data() {
 			return {
