@@ -1,6 +1,6 @@
 <template>
 	<div class="media-field-outer">
-		<label v-if="label != undefined" class="label">{{ label }}</label>
+		<label v-if="label != undefined" class="label is-uppercase">{{ label }}</label>
 		<div class="control">
 			<div :class="!readonly && dragging ? 'media-field is-active' : 'media-field'" @dragenter.prevent="dragging = true" @dragover.prevent="dragging = true" @dragend.prevent="dragging = false" @dragleave.prevent="dragging = false" @drop.prevent="startUpload">
 				<div v-if="selected.length == 0 && uploading == null && uploadingMultiple.length == 0" class="has-text-centered pt-xs pb-xs">
@@ -10,7 +10,7 @@
 				<div v-else>
 					<div v-if="options.multiple">
 						<draggable v-model="selected" :sort="!readonly" :tag="'ul'" :class="readonly ? 'multiple-media multiple-media--disabled' : 'multiple-media'" :animation="200" @end="updateValue">
-							<li v-for="(medium, i) in selected" class="multiple-media__slide" :key="medium.id">
+							<li v-for="(medium, i) in selected" class="multiple-media__slide" :key="i">
 								<img :src="medium.thumbnail_url" v-if="medium.thumbnail_url" class="multiple-media__image">
 								<div class="multiple-media__icon" v-if="medium.type != 'image'">
 									<span class="icon is-large">
@@ -19,7 +19,7 @@
 								</div>
 								<span class="delete" @click="remove(i)"></span>
 							</li>
-							<MediaFieldMultipleUploadable v-for="(upload, i) in uploadingMultiple" :file="upload" :name="name" :locale="locale" :key="i"/>
+							<MediaFieldMultipleUploadable v-for="(upload, j) in uploadingMultiple" :file="upload" :name="name" :locale="locale" :key="1000 + j"/>
 						</draggable>
 					</div>
 					<div v-else>
@@ -85,6 +85,13 @@ export default {
 			self.updateValue()	
 		})
 
+		Event.$on('media-field-updated', function(data) {
+			if(data.name != (self.name + (self.locale ? self.locale : ''))) return
+
+			self.selected = data.selected
+			self.updateValue()
+		})
+
 		self.updateValue()
 	},
 	beforeDestroy() {
@@ -100,7 +107,15 @@ export default {
 		},
 		openLibrary() {
 			if(this.readonly) return
-			console.log('open library')
+
+			const self = this
+
+			Event.$emit('floating-library-open', {
+				name: (self.name + (self.locale ? self.locale : '')),
+				selected: self.selected,
+				multiple: self.options.multiple,
+				filters: self.options.filters
+			})
 		},
 		startUpload(e) {
 			if(this.readonly) return

@@ -36,12 +36,18 @@ export default {
 		
 		Event.$on('delete-modal-open', function(payload) {
 			document.querySelector('html,body').classList.add('is-clipped')
+			document.addEventListener('keydown', function(e) {
+				if(e.keyCode == 27) self.close()
+			})
+
 			self.payload = payload
 			self.isOpen = true
 		})
 
 		Event.$on('delete-modal-close', function() {
 			document.querySelector('html,body').classList.remove('is-clipped')
+			document.removeEventListener('keydown', self.close)
+			
 			self.payload = {}
 			self.isOpen = false
 		})

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<label v-if="label != undefined" class="label">{{ label }}</label>
+		<label v-if="label != undefined" class="label is-uppercase">{{ label }}</label>
 		<div ref="picker">
 			<div class="control has-icons-left">
 				<span class="icon is-small is-left">
@@ -37,7 +37,7 @@ export default {
 	data() {
 		return {
 			displayPicker: false,
-			date: (this.value ? this.value : new Date()),
+			date: (this.value ? new Date(this.value) : new Date()),
 			settings: {
 				hightlight: {
 					color: 'red'
@@ -48,7 +48,7 @@ export default {
 	computed: {
 		readableDate() {
 			const tzoffset = (new Date()).getTimezoneOffset() * 60000
-
+			
 			return (new Date(this.date - tzoffset)).toISOString().replace('T', ' ').substring(0, this.date.toISOString().length - 5)
 		}
 	},
@@ -75,7 +75,7 @@ export default {
 	},
 	watch: {
 		value: function(n) {
-			this.date = typeof n == 'string' ? new Date(n) : n
+			this.date = (n && typeof n == 'string' ? new Date(n) : new Date())
 
 			this.updateDate()
 		}

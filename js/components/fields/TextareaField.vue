@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<label v-if="label != undefined" class="label">{{ label }}</label>
+		<label v-if="label != undefined" class="label is-uppercase">{{ label }}</label>
 		<div class="control">
 			<textarea
 				:class="errors.has(translatable ? name + '.' + locale : name) ? 'textarea is-danger' : 'textarea'"

@@ -12,12 +12,15 @@ import PasswordField from './js/components/fields/PasswordField'
 import RelationField from './js/components/fields/RelationField'
 import SelectField from './js/components/fields/SelectField'
 import TextareaField from './js/components/fields/TextareaField'
+import TextEditorField from './js/components/fields/TextEditorField'
 import TextField from './js/components/fields/TextField'
 
 import Datable from './js/components/Datable'
 import DatableDropdown from './js/components/DatableDropdown'
 import DeleteModal from './js/components/DeleteModal'
 import Dropdown from './js/components/Dropdown'
+import FloatingLibrary from './js/components/FloatingLibrary'
+import FloatingLibraryUploadCard from './js/components/FloatingLibraryUploadCard'
 import FormBody from './js/components/FormBody'
 import Notification from './js/components/Notification'
 import Pagination from './js/components/Pagination'
@@ -49,8 +52,8 @@ import {api_url, api_url_with_token, format_date, format_date_for_humans, assess
 
 export {
 	Form,
-	CheckboxField, ColorField, DatetimeField, EmailField, MediaField, MediaFieldSingleUploadable, MediaFieldMultipleUploadable, NumberField, PasswordField, RelationField, SelectField, TextareaField, TextField,
-	Datable, DatableDropdown, DeleteModal, Dropdown, FormBody, Notification, Pagination, PaperHeader, Tabs, Toolbar,
+	CheckboxField, ColorField, DatetimeField, EmailField, MediaField, MediaFieldSingleUploadable, MediaFieldMultipleUploadable, NumberField, PasswordField, RelationField, SelectField, TextareaField,TextEditorField, TextField,
+	Datable, DatableDropdown, DeleteModal, Dropdown, FloatingLibrary, FloatingLibraryUploadCard, FormBody, Notification, Pagination, PaperHeader, Tabs, Toolbar,
 	DataLister, Permissions, RequiresPermissions, Shower, SingleMultiple, Storer, Translatable, Updater, View,
 	SortableLink, SubmitFooter,
 	NotFound, Unauthorized, Internal,

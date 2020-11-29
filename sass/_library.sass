@@ -1,0 +1,137 @@
+$library-micro-threshold: 30rem
+$library-tablet-threshold: 48rem
+
+.floating-library
+	width: calc(100vw - #{$modal-content-spacing-tablet})
+	height: calc(100vh - #{$modal-content-spacing-tablet})
+	position: relative
+	@media screen and (max-width: $library-micro-threshold)
+		height: 100vh
+		width: 100vw
+		max-height: none
+
+	&__body
+		padding: 0
+		display: flex
+		flex-direction: column
+
+	&__head
+		position: relative
+		z-index: 2
+		border-bottom: 1px solid $grey-lightest
+
+	&__row
+		display: flex
+		max-height: calc(100% - 3.5rem)
+
+		&--main
+			flex: 1
+
+		&--bottom
+			border-top: 1px solid $grey-lightest
+			position: relative
+			z-index: 2
+
+			.floating-library__side
+				background-color: transparent
+
+	&__main
+		flex-basis: calc(100% - 20rem)
+		flex-grow: 1
+		flex-shrink: 1
+		position: relative
+		max-height: 100%
+
+	&__side
+		flex-basis: 20rem
+		flex-grow: 0
+		flex-shrink: 0
+		position: relative
+		@media screen and (max-width: $library-tablet-threshold)
+			display: none
+
+	&__footer
+		padding: 0.5rem 20px 0
+		@media screen and (max-width: $library-tablet-threshold)
+			padding: 0.5rem 20px 0
+		@media screen and (max-width: $library-micro-threshold)
+			padding: 0.5rem 0.75rem
+
+	&__content
+		overflow-y: auto
+		max-height: calc(100% - 4.5rem)
+		&::-webkit-scrollbar
+			width: 0.25rem
+			background: $grey-lightest
+		&::-webkit-scrollbar-thumb
+			background-color: $primary
+
+	&__list-outer, &__content-inner
+		padding: $modal-card-head-padding
+		@media screen and (max-width: $library-micro-threshold)
+			padding: 0.75rem
+
+	&__selection
+		+clearfix
+		width: calc(100% + 0.25rem)
+		margin-right: -0.25rem
+
+	&__selected
+		display: inline-block
+		float: left
+		height: 2.5rem
+		width: 2.5rem
+		border: 1px solid $grey-light
+		margin-right: 0.25rem
+		margin-bottom: 0.25rem
+		box-shadow: $shadow
+		cursor: move
+		transition: box-shadow $duration-short, border-color $duration-short
+
+		&--highlighted
+			border-color: $primary
+			box-shadow: 0 0 6px rgba($primary, 0.8)
+
+	&__icon
+		padding: 0.1875rem
+		background-color: $grey-lightest
+
+	&__info
+		height: 2.5rem
+		overflow: hidden
+		white-space: nowrap
+
+	@media screen and (max-width: $library-tablet-threshold)
+		&__selection-outer
+			display: none
+
+		&__buttons-outer
+			display: block
+			flex-basis: auto
+			width: 100%
+
+	&__dropzone
+		position: absolute
+		width: calc(100% - 1rem)
+		height: calc(100% - 1rem)
+		top: 0.5rem
+		left: 0.5rem
+		border-radius: $radius-large
+		background-image: linear-gradient(-45deg, rgba($white, 0.2) 25%, transparent 25%, transparent 50%, rgba($white, 0.2) 50%, rgba($white, 0.2) 75%, transparent 75%, transparent)
+		border-radius: $radius
+		background-color: rgba($primary, 0.85)
+		z-index: -1
+		opacity: 0
+		transition: opacity $duration-medium, z-index 0ms linear $duration-medium-up
+		background-size: 1.75rem 1.75rem
+
+		.icon
+			position: absolute
+			top: 50%
+			left: 50%
+			transform: translate(-50%, -50%)
+
+		&--active
+			z-index: 10
+			opacity: 1
+			transition: opacity $duration-medium

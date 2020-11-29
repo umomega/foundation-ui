@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<label v-if="label != undefined" class="label">{{ label }}</label>
+		<label v-if="label != undefined" class="label is-uppercase">{{ label }}</label>
 		<div class="control">
 			<div :class="options.wrapper ? options.wrapper : 'relation-field'">
 				<slot name="message" :related="selected">

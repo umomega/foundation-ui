@@ -1,6 +1,6 @@
 {
     "name": "umomega-foundation",
-    "version": "1.17.0",
+    "version": "1.18.0",
     "description": "UI Foundation For umΩ Apps",
     "sass": "foundation-ui.sass",
     "main": "foundation-ui.js",
@@ -35,6 +35,7 @@
         "foundation-ui.js"
     ],
     "dependencies": {
+        "@toast-ui/vue-editor": "^2.5.1",
         "axios": "^0.19.2",
         "axios-progress-bar": "^1.2.0",
         "cash-dom": "^8.0.0",
@@ -45,6 +46,7 @@
         "umokit": "^0.3.35",
         "v-calendar": "^2.0.2",
         "vue-color": "^2.7.1",
+        "vue-infinite-scroll": "^2.0.2",
         "vue-notification": "^1.3.20",
         "vue-page-title": "^1.2.3",
         "vue-prism-editor": "^1.2.2",
