@@ -104,7 +104,10 @@
 .media-field-outer .button.is-danger
 	background-color: transparent !important
 
-.media-field
+.media-field i, .single-medium__thumb i
+	font-style: normal !important
+
+.media-field, .editor-field
 	border: $control-border-width solid transparent
 	border-radius: $input-radius
 	min-height: $control-height
@@ -230,6 +233,19 @@
 		text-align: center
 		top: calc(50% - 1.5rem)
 		width: 100%
+
+.editor-field
+	position: relative
+	padding: 0.25rem 0.75rem
+	.icon
+		height: auto !important
+		width: auto !important
+
+	.codex-editor-overlay__rectangle
+		display: none !important
+
+.editor-field-media
+	padding: 1.5rem 0
 
 .button.is-inverted.is-danger:focus
 	color: $danger-dark !important

@@ -1,4 +1,5 @@
 import Form from './js/classes/form'
+import Media from './js/classes/media'
 
 import CheckboxField from './js/components/fields/CheckboxField'
 import ColorField from './js/components/fields/ColorField'
@@ -51,7 +52,7 @@ import store from './js/store'
 import {api_url, api_url_with_token, format_date, format_date_for_humans, assess_error, readable_file_size} from './js/helpers'
 
 export {
-	Form,
+	Form, Media,
 	CheckboxField, ColorField, DatetimeField, EmailField, MediaField, MediaFieldSingleUploadable, MediaFieldMultipleUploadable, NumberField, PasswordField, RelationField, SelectField, TextareaField,TextEditorField, TextField,
 	Datable, DatableDropdown, DeleteModal, Dropdown, FloatingLibrary, FloatingLibraryUploadCard, FormBody, Notification, Pagination, PaperHeader, Tabs, Toolbar,
 	DataLister, Permissions, RequiresPermissions, Shower, SingleMultiple, Storer, Translatable, Updater, View,

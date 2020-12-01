@@ -6,11 +6,11 @@ export default {
 	mixins: [Field],
 	components: {draggable},
 	data() { return {
-		selected: this.value
+		selected: this.compileValue()
 	}},
 	watch: {
 		value(to) {
-			this.selected = this.value
+			this.selected = this.compileValue()
 		}
 	},
 	methods: {
@@ -20,6 +20,13 @@ export default {
 		},
 		updateValue() {
 			this.$emit('input', this.selected)
+		},
+		compileValue() {
+			if(this.options.multiple) {
+				return (this.value && this.value.length == 0 ? [] : this.value)
+			}
+
+			return (this.value && this.value.length == 0 ? null : this.value)
 		}
 	}
 }

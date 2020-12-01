@@ -1,10 +1,10 @@
 <template>
 	<div :class="activeClass">
 		<div class="modal-background" @click="close"></div>
-		<div class="modal-card floating-library" @dragenter.prevent="dragging = true" @dragover.prevent="dragging = true" @dragend.prevent="dragging = false" @dragleave.prevent="dragging = false" @drop.prevent="startUpload">
-			<div :class="dragging ? 'floating-library__dropzone floating-library__dropzone--active' : 'floating-library__dropzone'"><span class="icon"><i class="fas fa-3x fa-file-upload has-color-white"></i></span></div>
+		<div class="modal-card floating-library">
 			<div class="modal-card-body floating-library__body">
-				<div class="floating-library__row floating-library__row--main">
+				<div class="floating-library__row floating-library__row--main" @dragenter.prevent="dragging = true" @dragover.prevent="dragging = true" @dragend.prevent="dragging = false" @dragleave.prevent="dragging = false" @drop.prevent="startUpload">
+					<div :class="dragging ? 'floating-library__dropzone floating-library__dropzone--active' : 'floating-library__dropzone'"><span class="icon"><i class="fas fa-3x fa-file-upload has-color-white"></i></span></div>
 					<div class="floating-library__main">
 						<div class="modal-card-head floating-library__head">
 							<h3 class="modal-card-title has-color-grey-darker is-uppercase" v-text="trans.get('foundation::general.library')"></h3>
@@ -52,7 +52,7 @@
 											<source :src="resource.public_url" :type="resource.metadata.mimetype">
 										</video>
 										<audio v-if="resource.type == 'audio'" :src="resource.public_url" controls></audio>
-										<div v-if="resource.type == 'embed'" v-html="resource.metadata.code.html"></div>
+										<div v-if="resource.type == 'embed' && resource.metadata.code && resource.metadata.code.html" v-html="resource.metadata.code.html"></div>
 									</div>
 									<p class="is-size-9 has-color-grey-darker has-text-centered mb-md" v-text="metadata"></p>
 									<form method="POST" action="/api/media" @submit.prevent="requestUpdate('media', '', resource.id)" @change="clearError($event.target.name)" autocomplete="off">
@@ -186,7 +186,7 @@ export default {
 		concatMedia() {
 			if(this.payload.multiple && Array.isArray(this.initialSelected)) {
 				return this.initialSelected.concat(this.uploading.concat(this.media))
-			} else if(!this.payload.multiple && this.initialSelected) {
+			} else if(!this.payload.multiple && this.initialSelected && this.initialSelected.length > 0) {
 				return [this.initialSelected].concat(this.uploading.concat(this.media))
 			}
 
@@ -262,17 +262,19 @@ export default {
 			//if(self.payload.name == payload.name) return
 
 			// To break the reactivity
-			self.payload = JSON.parse(JSON.stringify(payload))
-			
+			payload = JSON.parse(JSON.stringify(payload))
+			if(!payload.multiple && (payload.selected.length == 0 || payload.selected == '')) payload.selected = null
+			self.payload = payload
+
 			if(self.$refs.mediaList) self.$refs.mediaList.scrollTop = 0
 			if(self.$refs.sideColumn) self.$refs.sideColumn.scrollTop = 0
 
 			if(payload.multiple && Array.isArray(payload.selected)) {
 				self.checked = self.initialSelectedIds = payload.selected.map(function(medium) { return medium.id })
-				self.initialSelected = payload.selected
+				self.initialSelected = JSON.parse(JSON.stringify(payload.selected))
 			} else if(!payload.multiple && payload.selected) {
 				self.checked = self.initialSelectedIds = [payload.selected.id]
-				self.initialSelected = payload.selected
+				self.initialSelected = JSON.parse(JSON.stringify(payload.selected))
 				self.highlight(payload.selected)
 			} else {
 				self.checked = self.initialSelectedIds = []
@@ -355,7 +357,7 @@ export default {
 				.catch(function(error) { assess_error(error) })
 		},
 		thumbnailIcon(type) {
-			return 'fas fa-' + (type == 'document' ? 'file' : 'file' + type)
+			return 'fas fa-' + (type == 'document' ? 'file' : 'file-' + type)
 		},
 		isShown(medium, i) {
 			return (medium.id == undefined && medium.name) || (!this.initialSelectedIds.includes(medium.id) || (this.initialSelectedIds.includes(medium.id) && i < this.initialSelectedIds.length)) && (!this.payload.filters || (this.payload.filters && this.payload.filters.includes(medium.type)))

@@ -2,14 +2,14 @@
 	<div class="media-field-outer">
 		<label v-if="label != undefined" class="label is-uppercase">{{ label }}</label>
 		<div class="control">
-			<div :class="!readonly && dragging ? 'media-field is-active' : 'media-field'" @dragenter.prevent="dragging = true" @dragover.prevent="dragging = true" @dragend.prevent="dragging = false" @dragleave.prevent="dragging = false" @drop.prevent="startUpload">
-				<div v-if="selected.length == 0 && uploading == null && uploadingMultiple.length == 0" class="has-text-centered pt-xs pb-xs">
+			<div :class="!readonly && !sorting && dragging ? 'media-field is-active' : 'media-field'" @dragenter.prevent="dragging = true" @dragover.prevent="dragging = true" @dragend.prevent="dragging = false" @dragleave.prevent="dragging = false" @drop.prevent="startUpload">
+				<div v-if="(selected == null || selected.length == 0) && uploading == null && uploadingMultiple.length == 0" class="has-text-centered pt-xs pb-xs">
 					<p v-text="trans.get('media::media.no_media_selected')"></p>
 					<p v-if="!readonly" v-text="trans.get('media::media.drag_and_drop_to_upload')" class="is-size-8 has-color-grey"></p>
 				</div>
 				<div v-else>
 					<div v-if="options.multiple">
-						<draggable v-model="selected" :sort="!readonly" :tag="'ul'" :class="readonly ? 'multiple-media multiple-media--disabled' : 'multiple-media'" :animation="200" @end="updateValue">
+						<draggable v-model="selected" :sort="!readonly" :tag="'ul'" :class="readonly ? 'multiple-media multiple-media--disabled' : 'multiple-media'" @start="sorting = true" :animation="200" @end="updateValueAndEnableDrag">
 							<li v-for="(medium, i) in selected" class="multiple-media__slide" :key="i">
 								<img :src="medium.thumbnail_url" v-if="medium.thumbnail_url" class="multiple-media__image">
 								<div class="multiple-media__icon" v-if="medium.type != 'image'">
@@ -28,7 +28,7 @@
 							<div class="single-medium">
 								<div class="single-medium__info">
 									<div class="single-medium__thumb">
-										<img class="single-medium__image" v-if="selected.type == 'image' && selected.thumbnail_url" :src="selected.thumbnail_url">
+										<img class="single-medium__image" v-if="selected.thumbnail_url" :src="selected.thumbnail_url">
 										<div class="single-medium__icon" v-else>
 											<span class="icon">
 												<i :class="thumbnailIcon(selected.type)"></i>
@@ -48,7 +48,7 @@
 		<div class="mt-sm has-text-right" v-if="!readonly">
 			<button class="button is-danger is-inverted has-background-white is-uppercase" v-text="trans.get('foundation::general.clear')" type="button" @click.prevent="clear">
 			</button>
-			<button class="button is-primary is-uppercase" @click.prevent="openLibrary">
+			<button class="button is-primary is-uppercase" type="button" @click.prevent="openLibrary">
 				<span>{{ trans.get('foundation::general.library') }}</span>
 				<span class="icon-flap"><span class="icon fas fa-photo-video"></span></span>
 			</button>
@@ -66,6 +66,7 @@ export default {
 	components: { MediaFieldSingleUploadable, MediaFieldMultipleUploadable },
 	data() { return {
 		dragging: false,
+		sorting: false,
 		uploading: null,
 		uploadingMultiple: []
 	}},
@@ -146,7 +147,11 @@ export default {
 			//return this.$root.shared.allowed_size >= file.size && this.$root.shared.allowed_mimetypes.includes(file.type)
 		},
 		thumbnailIcon(type) {
-			return 'fas fa-3x fa-' + (type == 'document' ? 'file' : 'file' + type)
+			return 'fas fa-3x fa-' + (type == 'document' ? 'file' : 'file-' + type)
+		},
+		updateValueAndEnableDrag() {
+			this.sorting = false
+			this.updateValue()
 		}
 	}
 }
