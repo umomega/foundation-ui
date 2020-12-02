@@ -61,8 +61,14 @@ export default {
 			var self = this
 
 			return self.searchResults.filter(function(result) {
-				for(var i = 0; i < self.selected.length; i++) {
-					if(self.selected[i].id == result.id) return false
+				if(self.options.multiple) {
+					const l = (self.selected != null && Array.isArray(self.selected)) ? self.selected.length : 0
+
+					for(var i = 0; i < l; i++) {
+						if(self.selected[i].id == result.id) return false
+					}
+				} else {
+					return result.id != (self.selected != null ? self.selected.id : 0)
 				}
 
 				return true
@@ -87,8 +93,13 @@ export default {
 			var self = this
 
 			if(this.searchTerm.trim().length > 2) {
+				var route = api_url_with_token(this.options.searchroute) + '&q=' + self.searchTerm
 
-				axios.get(api_url_with_token(this.options.searchroute) + '&q=' + self.searchTerm)
+				if(self.options.filter) {
+					route = route + '&of=' + (Array.isArray(self.options.filter) ? encodeURI(self.options.filter.join(',')) : encodeURI(self.options.filter))
+				}
+
+				axios.get(route)
 					.then(function(response) {
 						self.searchResults = response.data.data
 					})
@@ -137,7 +148,7 @@ export default {
 		},
 		getItemName(item) {
 			const namekey = this.options.namekey ? this.options.namekey : 'name'
-			return this.translated ? item[namekey][$root.appLocale] : item[namekey]
+			return this.translated ? item[namekey][this.$root.appLocale] : item[namekey]
 		}
 	}
 }
