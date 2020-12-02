@@ -4,18 +4,18 @@
 		<div class="control">
 			<div :class="options.wrapper ? options.wrapper : 'relation-field'">
 				<slot name="message" :related="selected">
-					<p class="pt-xs pb-xs pl-md pr-md" v-if="selected.length == 0" v-text="trans.get('foundation::general.no_item_selected')"></p>
+					<p class="pt-xs pb-xs pl-md pr-md" v-if="!selected || (selected && selected.length == 0)" v-text="trans.get('foundation::general.no_item_selected')"></p>
 				</slot>
 				
 				<draggable v-if="!readonly" v-model="selected" :tag="options.tag ? options.tag : 'ul'" @end="updateValue" :animation="200" :class="options.class ? options.class : ''">
 					<slot name="draggable" :related="selected" :remove="remove">
-						<li class="related-item" v-for="(item, i) in selected" :key="item.id">{{ translated ? item.name[$root.appLocale] : item.name }} <span class="delete is-small" @click="remove(i)"></span></li>
+						<li class="related-item" v-for="(item, i) in selected" :key="item.id">{{ getItemName(item) }} <span class="delete is-small" @click="remove(i)"></span></li>
 					</slot>
 				</draggable>
 
 				<slot name="readonly" :readonly="readonly" :related="selected" :translated="translated">
 					<ul v-if="readonly">
-						<li class="related-item is-disabled" v-for="item in selected" v-text="translated ? item.name[$root.appLocale] : item.name"></li>
+						<li class="related-item is-disabled" v-for="item in selected" v-text="getItemName(item)"></li>
 					</ul>
 				</slot>
 
@@ -29,7 +29,7 @@
 					<div class="dropdown-menu relation-search" v-if="showsResults">
 						<input class="sr-only" type="text" :ref="name + '_navigator'" @focus="isFocused = true" @blur="isFocused = true" @keydown.enter.prevent="addCurrentItem" @keydown.down.prevent="selectNextItem" @keydown.up.prevent="selectPreviousItem">
 						<div class="dropdown-content">
-							<a href="#" v-for="(item, i) in results" @click.prevent="add(item)" @mouseenter="selectedItem = i" v-text="translated ? item.name[$root.appLocale] : item.name" :class="i == selectedItem ? 'dropdown-item is-active' : 'dropdown-item'"></a>
+							<a href="#" v-for="(item, i) in results" @click.prevent="add(item)" @mouseenter="selectedItem = i" v-text="getItemName(item)" :class="i == selectedItem ? 'dropdown-item is-active' : 'dropdown-item'"></a>
 						</div>
 					</div>
 				</div>
@@ -58,25 +58,25 @@ export default {
 	},
 	computed: {
 		results() {
-			var self = this;
+			var self = this
 
 			return self.searchResults.filter(function(result) {
 				for(var i = 0; i < self.selected.length; i++) {
 					if(self.selected[i].id == result.id) return false
 				}
 
-				return true;
-			});
+				return true
+			})
 		},
 		showsResults() {
-			return this.results.length > 0 && (this.isFocused || this.isBrowsing);
+			return this.results.length > 0 && (this.isFocused || this.isBrowsing)
 		},
 		translated() {
 			return this.options.translated
 		}
 	},
 	created() {
-		this.updateValue();
+		this.updateValue()
 	},
 	methods: {
 		search() {
@@ -84,7 +84,7 @@ export default {
 			this.timeoutHandle = setTimeout(this.searchHandle, 200)
 		},
 		searchHandle() {
-			var self = this;
+			var self = this
 
 			if(this.searchTerm.trim().length > 2) {
 
@@ -95,17 +95,19 @@ export default {
 			}
 		},
 		add(item) {
-			if(item == null) return;
+			if(item == null) return
 
 			if(this.options.multiple) {
-				this.selected.push(item);
+				this.selected.push(item)
 			} else {
-				this.selected = [item];
+				this.selected = [item]
 			}
 
 			this.searchTerm = ''
 			this.searchResults = []
 			this.selectedItem = null
+
+			this.updateValue()
 		},
 		focusNavigator() {
 			if(this.searchResults.length > 0) {
@@ -132,6 +134,10 @@ export default {
 			if(this.selectedItem != null) {
 				this.add(this.results[this.selectedItem])
 			}
+		},
+		getItemName(item) {
+			const namekey = this.options.namekey ? this.options.namekey : 'name'
+			return this.translated ? item[namekey][$root.appLocale] : item[namekey]
 		}
 	}
 }
