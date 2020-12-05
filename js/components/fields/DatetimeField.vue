@@ -18,7 +18,7 @@
 			</div>
 			<div class="is-relative">
 				<div v-if="displayPicker" class="picker date-picker">
-					<DatePicker v-model="date" mode="dateTime" is24hr :first-day-of-week="2" @input="updateDate()"/>
+					<DatePicker v-model="date" mode="dateTime" is24hr :locale="{ id: $root.locale, firstDayOfWeek: 2 }" @input="updateDate()"/>
 				</div>
 			</div>
 		</div>	

@@ -66,10 +66,17 @@ export default {
 					class: Paragraph,
 					inlineToolbar: true
 				},
-				header: Header,
+				header: {
+					class: Header,
+					inlineToolbar: true
+				},
 				quote: {
 					class: Quote,
-					inlineToolbar: true
+					inlineToolbar: true,
+					config: {
+						quotePlaceholder: self.$root.trans.get('foundation::general.e_enter_quote'),
+						captionPlaceholder: self.$root.trans.get('foundation::general.e_enter_caption')
+					}
 				},
 				list: {
 					class: List,
@@ -84,15 +91,89 @@ export default {
 				image: SimpleImage,
 				embed: Embed,
 				table: Table,
-				warning: Warning,
-				code: CodeTool,
-				raw: RawTool,
+				warning: {
+					class: Warning,
+					inlineToolbar: true,
+					config: {
+						titlePlaceholder: self.$root.trans.get('foundation::general.e_enter_title'),
+						messagePlaceholder: self.$root.trans.get('foundation::general.e_enter_message')
+					}
+				},
+				code: {
+					class: CodeTool,
+					config: { placeholder: self.$root.trans.get('foundation::general.e_enter_a_code') }
+				},
+				raw: {
+					class: RawTool,
+					config: { placeholder: self.$root.trans.get('foundation::general.e_enter_html_code') }
+				},
 				inlineCode: InlineCode,
 				marker: Marker,
 				underline: Underline,
 				hyperlink: Hyperlink,
 				style: Style
-			}
+			},
+			i18n: { messages: {
+				toolNames: {
+					'Text': self.$root.trans.get('foundation::general.e_text'),
+					'Heading': self.$root.trans.get('foundation::general.e_heading'),
+					'Quote': self.$root.trans.get('foundation::general.e_quote'),
+					'List': self.$root.trans.get('foundation::general.e_list'),
+					'Checklist': self.$root.trans.get('foundation::general.e_checklist'),
+					'Delimiter': self.$root.trans.get('foundation::general.e_delimiter'),
+					'Media': self.$root.trans.get('foundation::general.e_media'),
+					'Image': self.$root.trans.get('foundation::general.e_image'),
+					'Embed': self.$root.trans.get('foundation::general.e_embed'),
+					'Table': self.$root.trans.get('foundation::general.e_table'),
+					'Warning': self.$root.trans.get('foundation::general.e_warning'),
+					'Code': self.$root.trans.get('foundation::general.e_code'),
+					'Raw HTML': self.$root.trans.get('foundation::general.e_raw'),
+					'InlineCode': self.$root.trans.get('foundation::general.e_inlinecode'),
+					'Marker': self.$root.trans.get('foundation::general.e_marker'),
+					'Underline': self.$root.trans.get('foundation::general.e_underline'),
+					'Hyperlink': self.$root.trans.get('foundation::general.e_hyperlink'),
+					'Style': self.$root.trans.get('foundation::general.e_style'),
+					'Bold': self.$root.trans.get('foundation::general.e_bold'),
+					'Italic': self.$root.trans.get('foundation::general.e_italic')
+				},
+				ui: {
+					'blockTunes': {
+						'toggler': {
+							'Click to tune': self.$root.trans.get('foundation::general.e_click_to_tune'),
+							'Move up': self.$root.trans.get('foundation::general.e_moveup'),
+							'Move down': self.$root.trans.get('foundation::general.e_movedown'),
+						}
+					},
+					'inlineToolbar': {
+						'converter': {
+							'Convert to': self.$root.trans.get('foundation::general.e_convert_to')
+						}
+					},
+					'toolbar': {
+						'toolbox': {
+							'Add': self.$root.trans.get('foundation::general.add')
+						}
+					}
+				},
+				blockTunes: {
+					'delete': {
+						'Delete': self.$root.trans.get('foundation::general.delete')
+					},
+					'moveUp': {
+						'Move up': self.$root.trans.get('foundation::general.e_moveup')
+					},
+					'moveDown': {
+						'Move down': self.$root.trans.get('foundation::general.e_movedown')
+					}
+				},
+				tools: {
+					'hyperlink': {
+						'Save': self.$root.trans.get('foundation::general.save'),
+						'Select target': self.$root.trans.get('foundation::general.e_select_target'),
+						'Select rel': self.$root.trans.get('foundation::general.e_select_rel')
+					}
+				}
+			}}
 		})
 
 		self.editor = editor
