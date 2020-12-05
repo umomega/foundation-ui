@@ -41,7 +41,7 @@ export default {
 		editor: null,
 		data: this.value || {}
 	}},
-	mounted() {
+	created() {
 		const self = this
 
 		const editor = new EditorJS({
@@ -178,9 +178,7 @@ export default {
 
 		self.editor = editor
 
-		Event.$on('resource-loaded', function(data) {
-			self.refreshValue(data[self.name][self.locale])
-		})
+		Event.$on('resource-loaded', this.listenerTexteditor)
 	},
 	methods: {
 		refreshValue(data) {
@@ -188,10 +186,19 @@ export default {
 			this.data = (data || {blocks:[]})
 			this.editor.render(this.data)
 			this.editor.focus(true)
+		},
+		listenerTexteditor(data) {
+			if(data[this.name] != undefined) {
+				if(this.locale != '' && this.locale != undefined) {
+					this.refreshValue(data[this.name][this.locale])
+				} else {
+					this.refreshValue(data[this.name])
+				}
+			}
 		}
 	},
 	beforeDestroy() {
-		Event.$off('resource-loaded')
+		Event.$off('resource-loaded', this.listenerTexteditor)
 	}
 }
 </script>

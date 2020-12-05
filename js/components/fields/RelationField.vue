@@ -21,7 +21,7 @@
 
 				<div class="field" v-if="!readonly">
 					<div class="control has-icons-left">
-						<input :ref="name + '_search'" type="text" :class="errors.has(translatable ? name + '.' + locale : name) ? 'input is-danger' : 'input'" :placeholder="placeholder" @keydown="search" v-model="searchTerm" @focus="isFocused = true" @blur="isFocused = true" @keydown.down.prevent="focusNavigator" @keydown.enter.prevent>
+						<input :ref="name + '_search'" type="text" :class="errors.has(translatable ? name + '.' + locale : name) ? 'input is-danger' : 'input'" :placeholder="placeholder" @keydown="search" v-model="searchTerm" @focus="isFocused = true" @blur="isFocused = true" @keydown.down.prevent="focusNavigator" @keydown.enter.prevent="invokeEnter">
 						<span class="icon is-small is-left">
 							<i class="fas fa-search"></i>
 						</span>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import {assess_error} from '../../helpers'
 import SingleMultiple from '../../mixins/SingleMultiple'
 // https://github.com/SortableJS/Vue.Draggable
 // https://sortablejs.github.io/Vue.Draggable/#/simple
@@ -149,6 +150,11 @@ export default {
 		getItemName(item) {
 			const namekey = this.options.namekey ? this.options.namekey : 'name'
 			return this.translated ? item[namekey][this.$root.appLocale] : item[namekey]
+		},
+		invokeEnter() {
+			if(this.options.invokeEnter) {
+				this.options.invokeEnter(this, axios, api_url_with_token, assess_error)
+			}
 		}
 	}
 }

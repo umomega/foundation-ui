@@ -37,19 +37,22 @@ export default {
 	data() {
 		return {
 			displayPicker: false,
-			date: (this.value ? new Date(this.value) : new Date()),
-			settings: {
-				hightlight: {
-					color: 'red'
-				}
-			}
+			date: (this.value != '' && this.value != null ? new Date(this.value) : new Date())
 		}
 	},
 	computed: {
 		readableDate() {
 			const tzoffset = (new Date()).getTimezoneOffset() * 60000
-			
 			return (new Date(this.date - tzoffset)).toISOString().replace('T', ' ').substring(0, this.date.toISOString().length - 5)
+		}
+	},
+	created() {
+		this.updateDate()
+	},
+	watch: {
+		value(to) {
+			this.date = (to != '' && to != null ? new Date(to) : new Date())
+			this.updateDate()
 		}
 	},
 	methods: {
@@ -72,13 +75,6 @@ export default {
                 this.hidePicker()
             }
         }
-	},
-	watch: {
-		value: function(n) {
-			this.date = (n && typeof n == 'string' ? new Date(n) : new Date())
-
-			this.updateDate()
-		}
 	}
 }
 </script>
