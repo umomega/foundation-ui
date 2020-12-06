@@ -263,7 +263,7 @@ export default {
 
 			// To break the reactivity
 			payload = JSON.parse(JSON.stringify(payload))
-			if(!payload.multiple && (payload.selected.length == 0 || payload.selected == '')) payload.selected = null
+			if(!payload.multiple && ((payload.selected != null && payload.selected.length == 0) || payload.selected == '')) payload.selected = null
 			self.payload = payload
 
 			if(self.$refs.mediaList) self.$refs.mediaList.scrollTop = 0
