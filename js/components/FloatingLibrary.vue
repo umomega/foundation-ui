@@ -186,7 +186,7 @@ export default {
 		concatMedia() {
 			if(this.payload.multiple && Array.isArray(this.initialSelected)) {
 				return this.initialSelected.concat(this.uploading.concat(this.media))
-			} else if(!this.payload.multiple && this.initialSelected && this.initialSelected.length > 0) {
+			} else if(!this.payload.multiple && typeof this.initialSelected === 'object') {
 				return [this.initialSelected].concat(this.uploading.concat(this.media))
 			}
 
