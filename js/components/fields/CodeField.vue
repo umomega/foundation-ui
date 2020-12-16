@@ -16,8 +16,6 @@ import Field from '../../mixins/Field'
 import {PrismEditor} from 'vue-prism-editor'
 import 'vue-prism-editor/dist/prismeditor.min.css'
 import {highlight, languages} from 'prismjs/components/prism-core'
-import 'prismjs/components/prism-clike'
-import 'prismjs/components/prism-javascript'
 import 'prismjs/themes/prism-tomorrow.css'
 
 export default {
@@ -25,7 +23,7 @@ export default {
 	components: { PrismEditor },
 	methods: {
 		highlighter(code) {
-    		return highlight(code, languages.js);
+    		return highlight(code, languages.clike);
 		},
 		updateValue(code) {
 			this.$emit('input', code)

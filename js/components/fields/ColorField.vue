@@ -62,8 +62,9 @@ export default {
         }
 	},
 	watch: {
-		value: function(n) {
-			this.colors = n
+		value: function(to) {
+			this.colors = (to ? to : {hex: '#00249C'})
+			this.updateColor()
 		}
 	}
 }

@@ -4,6 +4,10 @@
 	background-color: $white
 	margin-bottom: 1.75rem
 
+	& .paper.has-flat-bottom
+		position: relative
+		z-index: 10
+
 	&.has-flat-bottom
 		margin-bottom: 0
 
@@ -16,9 +20,11 @@
 
 	&__main
 		padding: 2rem 2.5rem
-		flex-basis: calc(100% - 20rem)
+		flex-basis: calc(100% - 24rem)
 		flex-grow: 0
 		flex-shrink: 0
+		@media screen and (max-width: $widescreen)
+			flex-basis: calc(100% - 20rem)
 		@media screen and (max-width: $desktop)
 			padding: 2rem 1.25rem
 		@media screen and (max-width: $tablet)
@@ -39,11 +45,14 @@
 	&__side
 		background-color: $white-bis
 		border-left: 1px solid $white-ter
-		flex-basis: 20rem
-		width: 20rem
+		flex-basis: 24rem
+		width: 24rem
 		flex-grow: 0
 		flex-shrink: 0
 		padding: 2rem 1.5rem
+		@media screen and (max-width: $widescreen)
+			flex-basis: 20rem
+			width: 20rem
 		@media screen and (max-width: $desktop)
 			padding: 2rem 1.25rem
 		@media screen and (max-width: $tablet)

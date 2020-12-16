@@ -37,7 +37,7 @@ export default {
 	data() {
 		return {
 			displayPicker: false,
-			date: (this.value != '' && this.value != null ? new Date(this.value) : new Date())
+			date: (this.value != '' && this.value != null ? new Date(this.value.replace(/ /g, "T")) : new Date())
 		}
 	},
 	computed: {
@@ -51,7 +51,7 @@ export default {
 	},
 	watch: {
 		value(to) {
-			this.date = (to != '' && to != null ? new Date(to) : new Date())
+			this.date = (to != '' && to != null ? new Date(to.replace(/ /g, "T")) : new Date())
 			this.updateDate()
 		}
 	},

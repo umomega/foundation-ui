@@ -29,7 +29,7 @@ export default {
 			this.editingLocale = locale
 		},
 		clearError(field) {
-			if(this.translatableFields.includes(field)) {
+			if(this.translatableFields != undefined && this.translatableFields.includes(field)) {
 				this.form.errors.clear(field + '.' + this.editingLocale)
 			} else {
 				this.form.errors.clear(field)
