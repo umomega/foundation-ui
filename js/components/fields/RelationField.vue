@@ -21,13 +21,12 @@
 
 				<div class="field" v-if="!readonly">
 					<div class="control has-icons-left">
-						<input :ref="name + '_search'" type="text" :class="errors.has(translatable ? name + '.' + locale : name) ? 'input is-danger' : 'input'" :placeholder="placeholder" @keydown="search" v-model="searchTerm" @focus="isFocused = true" @blur="isFocused = true" @keydown.down.prevent="focusNavigator" @keydown.enter.prevent="invokeEnter">
+						<input :ref="name + '_search'" type="text" :class="errors.has(translatable ? name + '.' + locale : name) ? 'input is-danger' : 'input'" :placeholder="placeholder" @keydown="search" v-model="searchTerm" @focus="isFocused = true" @blur="isFocused = true" @keydown.down.prevent="selectNextItem" @keydown.up.prevent="selectPreviousItem" @keydown.enter.prevent="invokeEnter">
 						<span class="icon is-small is-left">
 							<i class="fas fa-search"></i>
 						</span>
 					</div>
 					<div class="dropdown-menu relation-search" v-if="showsResults">
-						<input class="sr-only" type="text" :ref="name + '_navigator'" @focus="isFocused = true" @blur="isFocused = true" @keydown.enter.prevent="addCurrentItem" @keydown.down.prevent="selectNextItem" @keydown.up.prevent="selectPreviousItem">
 						<div class="dropdown-content">
 							<a href="#" v-for="(item, i) in results" @click.prevent="add(item)" @mouseenter="selectedItem = i" v-text="getItemName(item)" :class="i == selectedItem ? 'dropdown-item is-active' : 'dropdown-item'"></a>
 						</div>
@@ -121,12 +120,6 @@ export default {
 
 			this.updateValue()
 		},
-		focusNavigator() {
-			if(this.searchResults.length > 0) {
-				this.$refs[this.name + '_navigator'].focus()
-				this.selectedItem = 0
-			}
-		},
 		selectNextItem() {
 			if(this.selectedItem == null) {
 				this.selectedItem = 0
@@ -152,7 +145,9 @@ export default {
 			return this.translated ? item[namekey][this.$root.appLocale] : item[namekey]
 		},
 		invokeEnter() {
-			if(this.options.invokeEnter) {
+			if(this.selectedItem != null) {
+				this.add(this.results[this.selectedItem])
+			} else if(this.options.invokeEnter) {
 				this.options.invokeEnter(this, axios, api_url_with_token, assess_error)
 			}
 		}

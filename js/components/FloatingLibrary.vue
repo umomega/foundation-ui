@@ -190,7 +190,7 @@ export default {
 				return [this.initialSelected].concat(this.uploading.concat(this.media))
 			}
 
-			return this.media
+			return this.uploading.concat(this.media)
 		},
 		selectedCount() {
 			return this.payload.multiple ? this.payload.selected.length : (this.payload.selected ? 1 : 0)
@@ -246,6 +246,7 @@ export default {
 				}
 
 				self.toggleSelect(data.payload)
+				self.highlight(data.payload)
 			}
 		})
 		

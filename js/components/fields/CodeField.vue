@@ -3,7 +3,7 @@
 		<label v-if="label != undefined" class="label is-uppercase">{{ label }}</label>
 		<div class="control">
 			<div class="code-editor">
-				<prism-editor :value="value" :highlight="highlighter" :line-numbers="true" :readonly="readonly" @input="updateValue"></prism-editor>
+				<prism-editor v-model="code" :highlight="highlighter" :line-numbers="true" :readonly="readonly" @input="updateValue"></prism-editor>
 			</div>
 		</div>	
 		<p class="help is-danger" v-if="anyErrors()" v-text="getErrorMessage()"></p>
@@ -21,12 +21,23 @@ import 'prismjs/themes/prism-tomorrow.css'
 export default {
 	mixins: [ Field ],
 	components: { PrismEditor },
+	data() { return {
+		code: this.compileValue()
+	}},
+	watch: {
+		value(to) {
+			this.code = this.compileValue()
+		}
+	},
 	methods: {
 		highlighter(code) {
     		return highlight(code, languages.clike);
 		},
 		updateValue(code) {
 			this.$emit('input', code)
+		},
+		compileValue() {
+			return this.value || ''
 		}
 	}
 }

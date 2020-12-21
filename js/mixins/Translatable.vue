@@ -1,11 +1,11 @@
 <script>
 export default {
 	data() { return {
-		editingLocale: router.currentRoute.params.locale || this.$root.appLocale
+		editingLocale: (this.$route.params.locale != undefined ? this.$route.params.locale : this.$root.appLocale)
 	}},
 	created() {
 		var self = this
-
+		
 		Event.$on('editing-locale-changed', function(locale) {
 			self.changeEditingLocale(locale)
 		})
