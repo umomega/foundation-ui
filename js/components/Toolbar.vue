@@ -20,7 +20,7 @@
 		<div class="level-right pl-md" v-if="canwrite">
 			<div>
 				<slot name="toolbar-buttons">
-					<p class="is-size-9 has-text-weight-bold has-color-grey-light has-text-centered is-uppercase mb-xxs" v-text="trans.get('foundation::general.create')"></p>
+					<p v-if="createroutename" class="is-size-9 has-text-weight-bold has-color-grey-light has-text-centered is-uppercase mb-xxs" v-text="trans.get('foundation::general.create')"></p>
 					<router-link v-if="createroutename" :to="{ name: createroutename }" class="button icon-only-wide is-primary"><i :class="createIcon"></i></router-link>
 				</slot>
 			</div>

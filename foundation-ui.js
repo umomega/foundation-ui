@@ -11,6 +11,7 @@ import MediaFieldSingleUploadable from './js/components/fields/MediaFieldSingleU
 import MediaFieldMultipleUploadable from './js/components/fields/MediaFieldMultipleUploadable'
 import NumberField from './js/components/fields/NumberField'
 import PasswordField from './js/components/fields/PasswordField'
+import RangeField from './js/components/fields/RangeField'
 import RelationField from './js/components/fields/RelationField'
 import SelectField from './js/components/fields/SelectField'
 import TextareaField from './js/components/fields/TextareaField'
@@ -54,7 +55,7 @@ import {api_url, api_url_with_token, format_date, format_date_for_humans, assess
 
 export {
 	Form, Media,
-	CheckboxField, CodeField, ColorField, DatetimeField, EmailField, MediaField, MediaFieldSingleUploadable, MediaFieldMultipleUploadable, NumberField, PasswordField, RelationField, SelectField, TextareaField,TextEditorField, TextField,
+	CheckboxField, CodeField, ColorField, DatetimeField, EmailField, MediaField, MediaFieldSingleUploadable, MediaFieldMultipleUploadable, NumberField, PasswordField, RangeField, RelationField, SelectField, TextareaField,TextEditorField, TextField,
 	Datable, DatableDropdown, DeleteModal, Dropdown, FloatingLibrary, FloatingLibraryUploadCard, FormBody, Notification, Pagination, PaperHeader, Tabs, Toolbar,
 	DataLister, Permissions, RequiresPermissions, Shower, SingleMultiple, Storer, Translatable, Updater, View,
 	SortableLink, SubmitFooter,
