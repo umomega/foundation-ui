@@ -1,6 +1,6 @@
 {
     "name": "umomega-foundation",
-    "version": "1.19.13",
+    "version": "1.19.14",
     "description": "UI Foundation For umΩ Apps",
     "sass": "foundation-ui.sass",
     "main": "foundation-ui.js",
@@ -61,7 +61,7 @@
         "luxon": "^1.25.0",
         "moment": "2.24.0",
         "prismjs": "^1.22.0",
-        "umokit": "^0.3.35",
+        "umokit": "^0.4.0",
         "v-calendar": "^2.0.2",
         "vue-color": "^2.7.1",
         "vue-infinite-scroll": "^2.0.2",
