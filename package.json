@@ -59,7 +59,7 @@
         "editorjs-undo": "^0.1.4",
         "lang.js": "^1.1.14",
         "luxon": "^1.25.0",
-        "moment": "2.24.0",
+        "moment": "2.29.2",
         "prismjs": "^1.22.0",
         "umokit": "^0.4.0",
         "v-calendar": "^2.0.2",
