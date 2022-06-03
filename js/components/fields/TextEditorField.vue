@@ -90,7 +90,14 @@ export default {
 				media: Media,
 				image: SimpleImage,
 				embed: Embed,
-				table: Table,
+				table: {
+					class: Table,
+					inlineToolbar: true,
+					config: {
+						rows: 2,
+						cols: 3,
+					},
+				},
 				warning: {
 					class: Warning,
 					inlineToolbar: true,
