@@ -31,16 +31,17 @@ import Underline from '@editorjs/underline'
 import Warning from '@editorjs/warning'
 import Hyperlink from 'editorjs-hyperlink'
 import Style from 'editorjs-style'
-import Undo from 'editorjs-undo'
 
 import Media from '../../classes/media'
 
 export default {
-	mixins: [ Field ],
-	data() { return {
-		editor: null,
-		data: this.value || {}
-	}},
+	mixins: [Field],
+	data() {
+		return {
+			editor: null,
+			data: this.value || {}
+		}
+	},
 	created() {
 		const self = this
 
@@ -49,8 +50,11 @@ export default {
 			holder: self.name + '_' + self.locale,
 			data: self.data,
 			onReady() {
-				const undo = new Undo({ editor })
-				undo.initialize(self.data)
+				Event.$on('editor-content-updated', function (data) {
+					editor.save().then(savedData => {
+						self.$emit('input', savedData)
+					})
+				})
 			},
 			onChange() {
 				editor.save().then(savedData => {
@@ -120,67 +124,69 @@ export default {
 				hyperlink: Hyperlink,
 				style: Style
 			},
-			i18n: { messages: {
-				toolNames: {
-					'Text': self.$root.trans.get('foundation::general.e_text'),
-					'Heading': self.$root.trans.get('foundation::general.e_heading'),
-					'Quote': self.$root.trans.get('foundation::general.e_quote'),
-					'List': self.$root.trans.get('foundation::general.e_list'),
-					'Checklist': self.$root.trans.get('foundation::general.e_checklist'),
-					'Delimiter': self.$root.trans.get('foundation::general.e_delimiter'),
-					'Media': self.$root.trans.get('foundation::general.e_media'),
-					'Image': self.$root.trans.get('foundation::general.e_image'),
-					'Embed': self.$root.trans.get('foundation::general.e_embed'),
-					'Table': self.$root.trans.get('foundation::general.e_table'),
-					'Warning': self.$root.trans.get('foundation::general.e_warning'),
-					'Code': self.$root.trans.get('foundation::general.e_code'),
-					'Raw HTML': self.$root.trans.get('foundation::general.e_raw'),
-					'InlineCode': self.$root.trans.get('foundation::general.e_inlinecode'),
-					'Marker': self.$root.trans.get('foundation::general.e_marker'),
-					'Underline': self.$root.trans.get('foundation::general.e_underline'),
-					'Hyperlink': self.$root.trans.get('foundation::general.e_hyperlink'),
-					'Style': self.$root.trans.get('foundation::general.e_style'),
-					'Bold': self.$root.trans.get('foundation::general.e_bold'),
-					'Italic': self.$root.trans.get('foundation::general.e_italic')
-				},
-				ui: {
-					'blockTunes': {
-						'toggler': {
-							'Click to tune': self.$root.trans.get('foundation::general.e_click_to_tune'),
-							'Move up': self.$root.trans.get('foundation::general.e_moveup'),
-							'Move down': self.$root.trans.get('foundation::general.e_movedown'),
+			i18n: {
+				messages: {
+					toolNames: {
+						'Text': self.$root.trans.get('foundation::general.e_text'),
+						'Heading': self.$root.trans.get('foundation::general.e_heading'),
+						'Quote': self.$root.trans.get('foundation::general.e_quote'),
+						'List': self.$root.trans.get('foundation::general.e_list'),
+						'Checklist': self.$root.trans.get('foundation::general.e_checklist'),
+						'Delimiter': self.$root.trans.get('foundation::general.e_delimiter'),
+						'Media': self.$root.trans.get('foundation::general.e_media'),
+						'Image': self.$root.trans.get('foundation::general.e_image'),
+						'Embed': self.$root.trans.get('foundation::general.e_embed'),
+						'Table': self.$root.trans.get('foundation::general.e_table'),
+						'Warning': self.$root.trans.get('foundation::general.e_warning'),
+						'Code': self.$root.trans.get('foundation::general.e_code'),
+						'Raw HTML': self.$root.trans.get('foundation::general.e_raw'),
+						'InlineCode': self.$root.trans.get('foundation::general.e_inlinecode'),
+						'Marker': self.$root.trans.get('foundation::general.e_marker'),
+						'Underline': self.$root.trans.get('foundation::general.e_underline'),
+						'Hyperlink': self.$root.trans.get('foundation::general.e_hyperlink'),
+						'Style': self.$root.trans.get('foundation::general.e_style'),
+						'Bold': self.$root.trans.get('foundation::general.e_bold'),
+						'Italic': self.$root.trans.get('foundation::general.e_italic')
+					},
+					ui: {
+						'blockTunes': {
+							'toggler': {
+								'Click to tune': self.$root.trans.get('foundation::general.e_click_to_tune'),
+								'Move up': self.$root.trans.get('foundation::general.e_moveup'),
+								'Move down': self.$root.trans.get('foundation::general.e_movedown'),
+							}
+						},
+						'inlineToolbar': {
+							'converter': {
+								'Convert to': self.$root.trans.get('foundation::general.e_convert_to')
+							}
+						},
+						'toolbar': {
+							'toolbox': {
+								'Add': self.$root.trans.get('foundation::general.add')
+							}
 						}
 					},
-					'inlineToolbar': {
-						'converter': {
-							'Convert to': self.$root.trans.get('foundation::general.e_convert_to')
+					blockTunes: {
+						'delete': {
+							'Delete': self.$root.trans.get('foundation::general.delete')
+						},
+						'moveUp': {
+							'Move up': self.$root.trans.get('foundation::general.e_moveup')
+						},
+						'moveDown': {
+							'Move down': self.$root.trans.get('foundation::general.e_movedown')
 						}
 					},
-					'toolbar': {
-						'toolbox': {
-							'Add': self.$root.trans.get('foundation::general.add')
+					tools: {
+						'hyperlink': {
+							'Save': self.$root.trans.get('foundation::general.save'),
+							'Select target': self.$root.trans.get('foundation::general.e_select_target'),
+							'Select rel': self.$root.trans.get('foundation::general.e_select_rel')
 						}
-					}
-				},
-				blockTunes: {
-					'delete': {
-						'Delete': self.$root.trans.get('foundation::general.delete')
-					},
-					'moveUp': {
-						'Move up': self.$root.trans.get('foundation::general.e_moveup')
-					},
-					'moveDown': {
-						'Move down': self.$root.trans.get('foundation::general.e_movedown')
-					}
-				},
-				tools: {
-					'hyperlink': {
-						'Save': self.$root.trans.get('foundation::general.save'),
-						'Select target': self.$root.trans.get('foundation::general.e_select_target'),
-						'Select rel': self.$root.trans.get('foundation::general.e_select_rel')
 					}
 				}
-			}}
+			}
 		})
 
 		self.editor = editor
@@ -190,13 +196,13 @@ export default {
 	methods: {
 		refreshValue(data) {
 			this.editor.clear()
-			this.data = (data || {blocks:[]})
+			this.data = (data || { blocks: [] })
 			this.editor.render(this.data)
 			this.editor.focus(true)
 		},
 		listenerTexteditor(data) {
-			if(data[this.name] != undefined) {
-				if(this.locale != '' && this.locale != undefined) {
+			if (data[this.name] != undefined) {
+				if (this.locale != '' && this.locale != undefined) {
 					this.refreshValue(data[this.name][this.locale])
 				} else {
 					this.refreshValue(data[this.name])

@@ -4,7 +4,7 @@
 		<div class="control">
 			<div :class="errors.has(translatable ? name + '.' + locale : name) ? 'select is-fullwidth is-danger' : 'select is-fullwidth'">
 				<select :name="name" :required="options.required" :readonly="readonly" :disabled="readonly" @input="$emit('input', $event.target.value)">
-					<option v-text="trans.get('foundation::general.choose_one')"></option>
+					<option v-text="trans.get('foundation::general.choose_one')" value=""></option>
 					<option v-for="option in options.choices" :value="option.value" v-text="option.label" :selected="value == option.value"></option>
 				</select>
 			</div>

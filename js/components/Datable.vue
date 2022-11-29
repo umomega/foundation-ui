@@ -72,7 +72,7 @@
 		</div>
 
 		<div :class="paginationinverted == undefined || paginationinverted ? 'datable-footer has-background-primary' : 'datable-footer has-background-white-ter'">
-			<Pagination v-if="totalPages > 1 && !searchmode" :total="totalPages" :current="page" :sortkey="sortKey" :route="route" :sortdir="sortDir" :inverted="paginationinverted"/>
+			<Pagination v-if="totalPages > 1 && !searchmode" :total="totalPages" :current="page" :sortkey="sortKey" :filterkey="filterKey" :route="route" :sortdir="sortDir" :inverted="paginationinverted"/>
 			
 			<div class="has-text-centered pt-sm pb-sm" v-if="searchmode">
 				<router-link class="has-color-white is-uppercase has-text-weight-bold is-size-7" :to="{ name: route }"><i class="icon fas fa-long-arrow-alt-left"></i> {{ trans.get(alllabel) }}</router-link>

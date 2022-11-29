@@ -7,7 +7,7 @@ export default class Media {
 		}
 	}
 
-	constructor({data}) {
+	constructor({ data }) {
 		this.data = data || {}
 		this.wrapper = undefined
 		this.selection = undefined
@@ -15,11 +15,13 @@ export default class Media {
 
 		const self = this
 
-		Event.$on('media-field-updated', function(data) {
-			if(data.name == self.name) {
+		Event.$on('media-field-updated', function (data) {
+			if (data.name == self.name) {
 				self.data.media = data.selected
 
 				self.createSelection()
+
+				Event.$emit('editor-content-updated')
 			}
 		})
 	}
@@ -40,26 +42,26 @@ export default class Media {
 		return this.wrapper
 	}
 
-	save() {
+	save(blockContent) {
 		return {
-			media: ((this.data && this.data.media) ? this.data.media: [])
+			media: ((this.data && this.data.media) ? this.data.media : [])
 		}
 	}
 
 	createSelection() {
 		this.selection.innerHTML = ''
-		
-		if(this.data && this.data.media && this.data.media.length > 0) {
-			if(this.data.media.length == 1) {
+
+		if (this.data && this.data.media && this.data.media.length > 0) {
+			if (this.data.media.length == 1) {
 				const medium = this.data.media[0]
 
-				if(medium.type == 'image') {
+				if (medium.type == 'image') {
 					const image = document.createElement('img')
 					image.setAttribute('src', medium.public_url)
 
 					this.selection.className = 'editor-field-media__selection mb-sm'
 					this.selection.appendChild(image)
-				} else if(medium.type == 'embed' && medium.metadata.code && medium.metadata.code.html) {
+				} else if (medium.type == 'embed' && medium.metadata.code && medium.metadata.code.html) {
 					this.selection.className = 'editor-field-media__selection mb-sm'
 					this.selection.innerHTML = (medium.metadata.code && medium.metadata.code.html ? medium.metadata.code.html : '')
 				} else {
@@ -98,11 +100,11 @@ export default class Media {
 
 				const self = this
 
-				this.data.media.forEach(function(medium) {
+				this.data.media.forEach(function (medium) {
 					const slide = document.createElement('li')
 					slide.className = 'multiple-media__slide'
 
-					if(medium.thumbnail_url) {
+					if (medium.thumbnail_url) {
 						const image = document.createElement('img')
 						image.className = 'multiple-media__image'
 						image.setAttribute('src', medium.thumbnail_url)
@@ -136,7 +138,7 @@ export default class Media {
 			heading.appendChild(document.createTextNode(trans.get('media::media.no_media_selected')))
 			emptyPrompt.appendChild(heading)
 
-			if(!this.readOnly) {
+			if (!this.readOnly) {
 				const subheading = document.createElement('p')
 				subheading.className = 'is-size-8 has-color-grey'
 				subheading.appendChild(document.createTextNode(trans.get('media::media.select_from_library')))
@@ -149,7 +151,7 @@ export default class Media {
 	}
 
 	_createButton() {
-		if(this.readOnly) return
+		if (this.readOnly) return
 
 		const button = document.createElement('button')
 		button.className = 'button is-light is-uppercase'
@@ -165,12 +167,12 @@ export default class Media {
 		iconOuter.className = 'icon-flap'
 		iconOuter.appendChild(icon)
 		button.appendChild(iconOuter)
-		
+
 		button.appendChild(buttonText)
 
 		const self = this
 
-		button.addEventListener('click', function() {
+		button.addEventListener('click', function () {
 			const selected = ((self.data && self.data.media && self.data.media != '') ? self.data.media : [])
 
 			const name = Math.random().toString(36).substring(7)
@@ -190,5 +192,5 @@ export default class Media {
 	_thumbnailIcon(type) {
 		return 'fas fa-3x fa-' + (type == 'document' ? 'file' : 'file-' + type)
 	}
-	
+
 }

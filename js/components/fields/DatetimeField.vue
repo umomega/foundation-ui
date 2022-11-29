@@ -37,11 +37,13 @@ export default {
 	data() {
 		return {
 			displayPicker: false,
-			date: (this.value != '' && this.value != null ? new Date(this.value.replace(/ /g, "T")) : new Date())
+			date: (this.value != '' && this.value != null ? new Date(this.value.replace(/ /g, "T")) : null)
 		}
 	},
 	computed: {
 		readableDate() {
+			if(this.date == null) return null;
+
 			const tzoffset = (new Date()).getTimezoneOffset() * 60000
 			return (new Date(this.date - tzoffset)).toISOString().replace('T', ' ').substring(0, this.date.toISOString().length - 5)
 		}
@@ -51,8 +53,7 @@ export default {
 	},
 	watch: {
 		value(to) {
-			this.date = (to != '' && to != null ? new Date(to.replace(/ /g, "T")) : new Date())
-			this.updateDate()
+			this.date = (to != '' && to != null ? new Date(to.replace(/ /g, "T")) : null)
 		}
 	},
 	methods: {
