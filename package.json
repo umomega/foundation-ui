@@ -1,6 +1,6 @@
 {
     "name": "umomega-foundation",
-    "version": "1.21.1",
+    "version": "1.21.2",
     "description": "UI Foundation For umΩ Apps",
     "sass": "foundation-ui.sass",
     "main": "foundation-ui.js",
