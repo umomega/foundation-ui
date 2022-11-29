@@ -39,7 +39,7 @@ export default {
 	data() {
 		return {
 			editor: null,
-			data: this.value || {}
+			data: ((this.value == '' || this.value == undefined) ? { blocks: [] } : this.value)
 		}
 	},
 	created() {
@@ -50,7 +50,7 @@ export default {
 			holder: self.name + '_' + self.locale,
 			data: self.data,
 			onReady() {
-				Event.$on('editor-content-updated', function (data) {
+				Event.$on('editor-content-updated', function () {
 					editor.save().then(savedData => {
 						self.$emit('input', savedData)
 					})
@@ -195,8 +195,8 @@ export default {
 	},
 	methods: {
 		refreshValue(data) {
+			this.data = ((data == '' || data == undefined) ? { blocks: [] } : data)
 			this.editor.clear()
-			this.data = (data || { blocks: [] })
 			this.editor.render(this.data)
 			this.editor.focus(true)
 		},

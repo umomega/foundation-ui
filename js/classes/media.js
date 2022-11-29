@@ -42,7 +42,7 @@ export default class Media {
 		return this.wrapper
 	}
 
-	save(blockContent) {
+	save() {
 		return {
 			media: ((this.data && this.data.media) ? this.data.media : [])
 		}
