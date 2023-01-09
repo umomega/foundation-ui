@@ -57,7 +57,7 @@
         "editorjs-hyperlink": "^1.0.6",
         "editorjs-style": "^2.2.0",
         "lang.js": "^1.1.14",
-        "luxon": "^1.28.0",
+        "luxon": "^2.5.2",
         "moment": "^2.29.4",
         "prismjs": "^1.28.0",
         "umokit": "^0.4.0",
