@@ -1,6 +1,6 @@
 {
     "name": "umomega-foundation",
-    "version": "1.21.2",
+    "version": "1.21.4",
     "description": "UI Foundation For umΩ Apps",
     "sass": "foundation-ui.sass",
     "main": "foundation-ui.js",
@@ -54,8 +54,8 @@
         "axios": "^0.27.2",
         "axios-progress-bar": "^1.2.0",
         "cash-dom": "^8.1.1",
-        "editorjs-hyperlink": "^1.0.6",
-        "editorjs-style": "^2.2.0",
+        "editorjs-hyperlink": "github:Hyleeh/editorjs-hyperlink",
+        "editorjs-style": "^3.0.0",
         "lang.js": "^1.1.14",
         "luxon": "^1.28.0",
         "moment": "^2.29.4",

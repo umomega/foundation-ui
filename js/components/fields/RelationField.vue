@@ -141,8 +141,9 @@ export default {
 			}
 		},
 		getItemName(item) {
-			const namekey = this.options.namekey ? this.options.namekey : 'name'
-			return this.translated ? item[namekey][this.$root.appLocale] : item[namekey]
+			const namekey = this.options.namekey ? this.options.namekey : 'name',
+				  idkey = this.options.idkey ? this.options.idkey : 'id'
+			return '#' + item[idkey] + ' — ' + (this.translated ? item[namekey][this.$root.appLocale] : item[namekey])
 		},
 		invokeEnter() {
 			if(this.selectedItem != null) {

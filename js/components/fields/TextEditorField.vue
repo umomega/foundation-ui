@@ -30,7 +30,7 @@ import Table from '@editorjs/table'
 import Underline from '@editorjs/underline'
 import Warning from '@editorjs/warning'
 import Hyperlink from 'editorjs-hyperlink'
-import Style from 'editorjs-style'
+import { StyleInlineTool } from 'editorjs-style'
 
 import Media from '../../classes/media'
 
@@ -122,7 +122,7 @@ export default {
 				marker: Marker,
 				underline: Underline,
 				hyperlink: Hyperlink,
-				style: Style
+				style: StyleInlineTool
 			},
 			i18n: {
 				messages: {
