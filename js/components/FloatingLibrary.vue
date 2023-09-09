@@ -361,7 +361,8 @@ export default {
 			return 'fas fa-' + (type == 'document' ? 'file' : 'file-' + type)
 		},
 		isShown(medium, i) {
-			return (medium.id == undefined && medium.name) || (!this.initialSelectedIds.includes(medium.id) || (this.initialSelectedIds.includes(medium.id) && i < this.initialSelectedIds.length)) && (!this.payload.filters || (this.payload.filters && this.payload.filters.includes(medium.type)))
+			return true
+			//return (medium.id == undefined && medium.name) || (!this.initialSelectedIds.includes(medium.id) || (this.initialSelectedIds.includes(medium.id) && i < this.initialSelectedIds.length)) && (!this.payload.filters || (this.payload.filters && this.payload.filters.includes(medium.type)))
 		},
 		startUpload(e) {
 			this.dragging = false
