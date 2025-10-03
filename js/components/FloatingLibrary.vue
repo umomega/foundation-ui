@@ -31,7 +31,7 @@
 											</div>
 											<p class="medium-filename" v-text="medium.name"></p>
 										</div>
-										<FloatingLibraryUploadCard v-if="medium.id == undefined && medium.name" :file="medium" :key="i"/>
+										<FloatingLibraryUploadCard v-if="(medium.id == undefined) && medium.name && (medium.uploadComplete == false)" :file="medium" :key="i"/>
 									</li>
 								</ul>
 								<div v-else class="has-text-centered pt-xxl pb-x xl pr-md pl-md" v-text="trans.get('foundation::general.no_results_found')"></div>
@@ -184,13 +184,20 @@ export default {
 			return this.isOpen ? 'modal is-active' : 'modal'
 		},
 		concatMedia() {
-			if(this.payload.multiple && Array.isArray(this.initialSelected)) {
-				return this.initialSelected.concat(this.uploading.concat(this.media))
-			} else if(!this.payload.multiple && !Array.isArray(this.initialSelected) && typeof this.initialSelected === 'object') {
-				return [this.initialSelected].concat(this.uploading.concat(this.media))
+			let concat = []
+
+			if (this.payload.multiple && Array.isArray(this.initialSelected)) {
+				concat = this.initialSelected.concat(this.uploading, this.media)
+			} else if (!this.payload.multiple && this.initialSelected && typeof this.initialSelected === 'object' && !Array.isArray(this.initialSelected)) {
+				concat = [this.initialSelected, ...this.uploading, ...this.media]
+			} else {
+				concat = [...this.uploading, ...this.media]
 			}
 
-			return this.uploading.concat(this.media)
+			return concat.filter((item, index, self) =>
+				item.id === undefined ||
+				self.findIndex(i => i.id === item.id) === index
+			)
 		},
 		selectedCount() {
 			return this.payload.multiple ? this.payload.selected.length : (this.payload.selected ? 1 : 0)
@@ -228,25 +235,29 @@ export default {
 			}
 
 			const k = self.media.findIndex(function(m) { return m.id == data.id })
-			self.$set(self.media, k, data)
+			if (k >= 0) self.$set(self.media, k, data)
 		})
 
 		Event.$on('upload-complete', function(data) {
-			self.media.unshift(data.payload)
+			let medium = data.payload
+			medium.comesWithPayload = true
+
+			self.media.unshift(medium)
+			self.uploading.push(medium)
 
 			// Self upload, so select
 			if(data.name == 'undefined') {
 				const i = self.uploading.findIndex(function(f) { return f.name == data.file.name })
-				self.uploading.splice(i, 1)
+				if(i >= 0) self.uploading[i].uploadComplete = true
 
 				if(self.payload.multiple) {
-					self.checked.unshift(data.payload.id)
+					self.checked.unshift(medium.id)
 				} else {
-					self.checked = [data.payload.id]
+					self.checked = [medium.id]
 				}
 
-				self.toggleSelect(data.payload)
-				self.highlight(data.payload)
+				self.toggleSelect(medium)
+				self.highlight(medium)
 			}
 		})
 		
@@ -258,9 +269,7 @@ export default {
 
 			self.isOpen = true
 
-			// This was to keep changes made but if we do this
-			// new uploads are shown twice
-			//if(self.payload.name == payload.name) return
+			if(self.payload.name == payload.name) return
 
 			// To break the reactivity
 			payload = JSON.parse(JSON.stringify(payload))
@@ -271,11 +280,19 @@ export default {
 			if(self.$refs.sideColumn) self.$refs.sideColumn.scrollTop = 0
 
 			if(payload.multiple && Array.isArray(payload.selected)) {
-				self.checked = self.initialSelectedIds = payload.selected.map(function(medium) { return medium.id })
-				self.initialSelected = JSON.parse(JSON.stringify(payload.selected))
+				self.checked = self.initialSelectedIds = payload.selected.map(function(medium) { return parseInt(medium.id, 10) })
+				let selected = JSON.parse(JSON.stringify(payload.selected))
+				selected.forEach(medium => {
+					medium.comesWithPayload = true
+				})
+				self.initialSelected = selected
 			} else if(!payload.multiple && payload.selected) {
-				self.checked = self.initialSelectedIds = [payload.selected.id]
-				self.initialSelected = JSON.parse(JSON.stringify(payload.selected))
+				self.checked = self.initialSelectedIds = [parseInt(payload.selected.id, 10)]
+				let selected = JSON.parse(JSON.stringify(payload.selected))
+				selected.forEach(medium => {
+					medium.comesWithPayload = true
+				})
+				self.initialSelected = selected
 				self.highlight(payload.selected)
 			} else {
 				self.checked = self.initialSelectedIds = []
@@ -361,8 +378,15 @@ export default {
 			return 'fas fa-' + (type == 'document' ? 'file' : 'file-' + type)
 		},
 		isShown(medium, i) {
-			return true
-			//return (medium.id == undefined && medium.name) || (!this.initialSelectedIds.includes(medium.id) || (this.initialSelectedIds.includes(medium.id) && i < this.initialSelectedIds.length)) && (!this.payload.filters || (this.payload.filters && this.payload.filters.includes(medium.type)))
+			return (medium.id == undefined && medium.uploadComplete == false) || 
+			(
+				medium.id != undefined &&
+				(!this.payload.filters || (this.payload.filters && this.payload.filters.includes(medium.type))) &&
+				(
+					!this.initialSelectedIds.includes(parseInt(medium.id, 10)) ||
+					(this.initialSelectedIds.includes(parseInt(medium.id, 10)) && medium.comesWithPayload == true)
+				)
+			)
 		},
 		startUpload(e) {
 			this.dragging = false
@@ -374,14 +398,14 @@ export default {
 
 			for(let f in [...files]) {
 				let fl = files[f]
-				if(this.validateFile(fl)) {
+				if(this.validateFile(fl) == true) {
+					fl.uploadComplete = false
 					this.uploading.push(fl)
 				}
 			}
 		},
 		validateFile(file) {
-			return this.$root.shared.allowed_size
-			//return this.$root.shared.allowed_size >= file.size && this.$root.shared.allowed_mimetypes.includes(file.type)
+			return (this.$root.shared.allowed_size >= file.size) && (this.$root.shared.allowed_mimetypes.includes(file.type))
 		},
 		clearError(field) {
 			if(this.translatableFields.includes(field)) {
