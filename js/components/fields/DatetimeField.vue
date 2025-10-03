@@ -29,7 +29,7 @@
 
 <script>
 import Field from '../../mixins/Field'
-import DatePicker from 'v-calendar/lib/components/date-picker.umd'
+import DatePicker from 'v-calendar'
 
 export default {
 	mixins: [ Field ],

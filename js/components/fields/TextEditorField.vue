@@ -31,6 +31,7 @@ import Underline from '@editorjs/underline'
 import Warning from '@editorjs/warning'
 import Hyperlink from 'editorjs-hyperlink'
 import { StyleInlineTool } from 'editorjs-style'
+import Undo from 'editorjs-undo'
 
 import Media from '../../classes/media'
 
@@ -55,6 +56,8 @@ export default {
 						self.$emit('input', savedData)
 					})
 				})
+
+				new Undo({ editor })
 			},
 			onChange() {
 				editor.save().then(savedData => {
