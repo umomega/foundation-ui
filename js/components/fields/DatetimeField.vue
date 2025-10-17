@@ -29,7 +29,7 @@
 
 <script>
 import Field from '../../mixins/Field'
-import DatePicker from 'v-calendar'
+import { DatePicker } from 'v-calendar'
 
 export default {
 	mixins: [ Field ],
