@@ -7,7 +7,10 @@ export default {
 			const self = this;
 
 			self.form.put(api_url(route + '/' + (id ? id : router.currentRoute.params.id) + flag))
-				.then(function(data) { 
+				.then(function(data) {
+					// Bad fix for a badly written front-end 
+					if(self.resource.comesWithPayload === true) data.payload.comesWithPayload = true
+
 					self.resource = data.payload
 					self.form.populate(data.payload)
 					self.notifier.success(data.message)

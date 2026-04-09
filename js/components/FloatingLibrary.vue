@@ -282,17 +282,19 @@ export default {
 			if(payload.multiple && Array.isArray(payload.selected)) {
 				self.checked = self.initialSelectedIds = payload.selected.map(function(medium) { return parseInt(medium.id, 10) })
 				let selected = JSON.parse(JSON.stringify(payload.selected))
-				selected.forEach(medium => {
-					medium.comesWithPayload = true
-				})
-				self.initialSelected = selected
+				if (selected.length > 0) {
+					selected.forEach(medium => {
+						medium.comesWithPayload = true
+					})
+					self.initialSelected = selected
+				}
 			} else if(!payload.multiple && payload.selected) {
 				self.checked = self.initialSelectedIds = [parseInt(payload.selected.id, 10)]
 				let selected = JSON.parse(JSON.stringify(payload.selected))
-				selected.forEach(medium => {
-					medium.comesWithPayload = true
-				})
-				self.initialSelected = selected
+				if (selected && typeof selected === 'object') {
+					selected.comesWithPayload = true
+					self.initialSelected = selected
+				}
 				self.highlight(payload.selected)
 			} else {
 				self.checked = self.initialSelectedIds = []
